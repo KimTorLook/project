@@ -2,6 +2,12 @@ from django.shortcuts import render
 from order_app.models import Order, Main_Course
 
 
+def ordering(request):
+    orders = Order.objects.all() 
+    context = {
+        "orders": orders
+    }
+    return render(request, "order_app/ordering.html", context)
 """
 #ordering 的view code
 meal1 = Main_Course.objects.create(name="乾炒牛")
