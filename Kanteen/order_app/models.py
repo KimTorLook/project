@@ -32,30 +32,33 @@ class Student(models.Model):
     student_id = models.CharField(max_length=20, editable=False)
     first_name = models.CharField(max_length=60, blank=True, null=True)
     last_name = models.CharField(max_length=30, blank=True, null=True)
-    date_of_birth = models.DateTimeField(auto_now=False, blank=True, null=True)
+    date_of_birth = models.DateField(auto_now=False, blank=True, null=True)
     Email = models.EmailField(blank=True, null=True, unique=True)
     is_active=models.BooleanField(blank=False, null=False)
     school_id = models.ForeignKey(School, on_delete=models.CASCADE)
     
     def __str__(self):
-        return self.stid
+        return self.first_name
+
 
 class Restaurant(models.Model):
     restaurant_id = models.AutoField(primary_key=True)
     restaurant_name = models.TextField(max_length=150, blank=True, null=True)
 
     def __str__(self):
-        return self.restaurant_id
+        return self.restaurant_name
 
 class Main_Course(models.Model):
     main_course_id = models.AutoField(primary_key=True)
     main_course_name = models.CharField(max_length=150, blank=True, null=True)
+    restaurant_id = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     main_course_cost = models.IntegerField(blank=True, null=True)
     main_course_price = models.IntegerField(blank=True, null=True)
+    main_course_img = models.ImageField(upload_to="project", null=True)
+    #<img src="{% static ' order_app/main_course_img.jpeg' %}" alt="">
 
     def __str__(self):
-        return self.main_course_id
-
+        return self.main_course_name
 class Order(models.Model):
     order_id = models.UUIDField(primary_key=True)
     order_date_time = models.DateTimeField(auto_now=False, blank=True, null=True)
