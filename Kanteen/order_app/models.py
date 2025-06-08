@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from datetime import datetime
 from django.contrib.auth.models import User
+import uuid
 
 class School(models.Model):
     class SchoolName(models.TextChoices):
@@ -35,10 +35,10 @@ class Student(models.Model):
     date_of_birth = models.DateField(auto_now=False, blank=True, null=True)
     Email = models.EmailField(blank=True, null=True, unique=True)
     is_active=models.BooleanField(blank=False, null=False)
-    school_id = models.ForeignKey(School, on_delete=models.CASCADE)
+    school = models.ForeignKey(School, on_delete=models.CASCADE)
     
     def __str__(self):
-        return self.first_name
+        return f"{self.first_name} {self.last_name}"
 
 
 class Restaurant(models.Model):
@@ -51,23 +51,37 @@ class Restaurant(models.Model):
 class Main_Course(models.Model):
     main_course_id = models.AutoField(primary_key=True)
     main_course_name = models.CharField(max_length=150, blank=True, null=True)
-    restaurant_id = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     main_course_cost = models.IntegerField(blank=True, null=True)
     main_course_price = models.IntegerField(blank=True, null=True)
-    main_course_img = models.ImageField(upload_to="project", null=True)
+    main_course_img = models.ImageField(upload_to="main_course", null=True)
     #<img src="{% static ' order_app/main_course_img.jpeg' %}" alt="">
 
     def __str__(self):
         return self.main_course_name
+    
+class MealCombination(models.Model):
+    combination_id = models.AutoField(primary_key=True)
+    meal1 = models.CharField(max_length=150, blank=True, null=True)
+    meal2 = models.CharField(max_length=150, blank=True, null=True)
+    meal3 = models.CharField(max_length=150, blank=True, null=True)
+    meal4 = models.CharField(max_length=150, blank=True, null=True)
+    meal5 = models.CharField(max_length=150, blank=True, null=True)
+    main_course = models.ForeignKey('Main_Course', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.main_course} on {self.date} for Order {self.order}"
+ 
+
 class Order(models.Model):
-    order_id = models.UUIDField(primary_key=True)
+    order_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     order_date_time = models.DateTimeField(auto_now=False, blank=True, null=True)
     payment_method = models.CharField(max_length=50, blank=True, null=True)
     confirm_payment = models.BooleanField(blank=True, null=True)
-    meals = models.ManyToManyField(Main_Course)
-    meal1 = models.CharField(max_length=10)
-    meal2 = models.CharField(max_length=10)
-    school_id = models.ForeignKey(School, on_delete=models.CASCADE)
+    meals = models.ForeignKey(MealCombination, on_delete=models.CASCADE)
+    #schools = models.ForeignKey(School, on_delete=models.CASCADE)
+    school = models.ForeignKey(School, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.order_id
+        return f"{self.order_id} - {self.order_date_time}"
+        

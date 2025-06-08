@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from order_app.models import Order, Main_Course
+#from order_app.models import Order, Main_Course
 
 
 def ordering(request):
