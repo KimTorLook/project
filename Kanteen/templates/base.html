@@ -7,6 +7,19 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <div class="container">
+    {% if request.user.is_authenticated %}
+        <H3> welcome {{ user.name }}</H3>
+    {% else %}
+        <form method="get" action="{% url 'login' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    {% endif %}
+
+    {% block body_content %}
+    {% endblock %}
+</div>
+
 </body>
 </html>

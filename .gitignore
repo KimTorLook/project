@@ -9,6 +9,9 @@
 *.jpeg
 *.jfif
 
+python cache
+*.pyc
+
 # User-specific files
 *.rsuser
 *.suo

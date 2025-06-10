@@ -48,7 +48,7 @@ class Restaurant(models.Model):
     def __str__(self):
         return self.restaurant_name
 
-class Main_Course(models.Model):
+class Main_Course(models.Model): # main course menu
     main_course_id = models.AutoField(primary_key=True)
     main_course_name = models.CharField(max_length=150, blank=True, null=True)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
@@ -79,8 +79,8 @@ class Order(models.Model):
     payment_method = models.CharField(max_length=50, blank=True, null=True)
     confirm_payment = models.BooleanField(blank=True, null=True)
     meals = models.ForeignKey(MealCombination, on_delete=models.CASCADE)
-    #schools = models.ForeignKey(School, on_delete=models.CASCADE)
     school = models.ForeignKey(School, on_delete=models.CASCADE)
+    
 
     def __str__(self):
         return f"{self.order_id} - {self.order_date_time}"
