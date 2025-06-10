@@ -60,26 +60,21 @@ class Main_Course(models.Model): # main course menu
     def __str__(self):
         return self.main_course_name
     
-class MealCombination(models.Model):
-    combination_id = models.AutoField(primary_key=True)
-    meal1 = models.CharField(max_length=150, blank=True, null=True)
-    meal2 = models.CharField(max_length=150, blank=True, null=True)
-    meal3 = models.CharField(max_length=150, blank=True, null=True)
-    meal4 = models.CharField(max_length=150, blank=True, null=True)
-    meal5 = models.CharField(max_length=150, blank=True, null=True)
-    main_course = models.ForeignKey('Main_Course', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"{self.main_course} on {self.date} for Order {self.order}"
  
 
 class Order(models.Model):
     order_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     order_date_time = models.DateTimeField(auto_now=False, blank=True, null=True)
-    payment_method = models.CharField(max_length=50, blank=True, null=True)
-    confirm_payment = models.BooleanField(blank=True, null=True)
-    meals = models.ForeignKey(MealCombination, on_delete=models.CASCADE)
     school = models.ForeignKey(School, on_delete=models.CASCADE)
+    confirm_payment = models.BooleanField(blank=True, null=True)
+    meal1 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal1", blank=True, null=True)
+    meal2 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal2", blank=True, null=True)
+    meal3 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal3", blank=True, null=True)
+    meal4 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal4", blank=True, null=True)
+    meal5 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal5", blank=True, null=True)
+    payment_method = models.CharField(max_length=50, blank=True, null=True)
+    price = models.IntegerField(blank=True, null=True)
+
     
 
     def __str__(self):

@@ -2,37 +2,27 @@ from django.shortcuts import render
 from order_app.models import Order, Main_Course, Restaurant
 from random import choice, choices
 
-def random_restaurent():
-    restaurents = Restaurant.objects.all()
-    random_restaurents = choices(restaurents)
-    return random_restaurents
-
-def random5():
+def random_restaurent_for_5_days():
     random_restaurent_list = []
+    restaurents = Restaurant.objects.all()
     for x in range(5):
-        x = random_restaurent()
+        x = choices(restaurents)
         random_restaurent_list.append(x)  
     return random_restaurent_list
 
+
 def ordering(request):
-        
+         
     if request.method == "GET":
         orders = Order.objects.all() 
         context = {
             "orders": orders,
-            "random_restaurent_list":random5()  
+            "random_restaurent_list":random_restaurent_for_5_days()  
         }
 
         return render(request, "order_app/ordering.html", context)
     elif request.method == "POST":
          pass
-
-def ordering_bak(request):
-        orders = Order.objects.all() 
-        context = {
-            "orders": orders
-        }
-        return render(request, "order_app/ordering.html", context)
 
 
 """

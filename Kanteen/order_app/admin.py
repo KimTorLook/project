@@ -1,11 +1,13 @@
 from django.contrib import admin
-from .models import Student,School, Restaurant, Order, Main_Course, MealCombination
+from .models import Student,School, Restaurant, Main_Course, Order
 # Register your models here.
 admin.site.register(Student)
 admin.site.register(School)
 admin.site.register(Restaurant)
 admin.site.register(Main_Course)
+admin.site.register(Order)
 
+"""
 @admin.register(MealCombination)
 class MealCombinationAdmin(admin.ModelAdmin):
     list_display = ('meal1','meal2', 'meal3', 'meal4', 'meal5')
@@ -23,7 +25,6 @@ class OrderAdmin(admin.ModelAdmin):
 class MealCombinationInline(admin.TabularInline):
     model = MealCombination
     extra = 5
-"""
 
 from django.contrib import admin
 from .models import Student,School, Restaurant, Order, Main_Course, MealCombination
