@@ -43,3 +43,26 @@ def ordering(request):
         return render(request, "order_app/ordering.html", context)
     elif request.method == "POST":
          pass
+    
+def orderConfirmation(request):
+    confirmedData = {
+        'Monday': {'mealImage.url': 'pathToImage', 'mealName': 'chosenMealName', 'price': 0},
+        'Tuesday': {'mealImage.url': 'pathToImage', 'mealName': 'chosenMealName', 'price': 0},
+        'Wednesday': {'mealImage.url': 'pathToImage', 'mealName': 'chosenMealName', 'price': 0},
+        'Thursday': {'mealImage.url': 'pathToImage', 'mealName': 'chosenMealName', 'price': 0},
+        'Friday': {'mealImage.url': 'pathToImage', 'mealName': 'chosenMealName', 'price': 0},
+    }
+
+    total_price = sum(meal['price'] for meal in confirmedData.values())
+
+    context = {
+        'Monday': confirmedData['Monday'],
+        'Tuesday': confirmedData['Tuesday'],
+        'Wednesday': confirmedData['Wednesday'],
+        'Thursday': confirmedData['Thursday'],
+        'Friday': confirmedData['Friday'],
+        'Total Price': total_price,
+    }
+
+    return render(request, "order_app/orderConfirmation.html", context)
+

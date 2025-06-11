@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %} Order Confirmation {% endblock %}
+
+{% block body_content %}
+    <h2> Confirmation </h2>
+    <div class="confirmationContainer">
+
+    #Pending for photos input
+        <div class="daysConfirmation"> <!--#Monday-->
+            <h3> Monday </h3>
+            #Pending for input of photos
+            <p> {{ mondayMealName }}</p>
+            <p> Price:{{ mondayMealPrice }}</p>
+        </div>
+
+        <div class="daysConfirmation"> #Tuesday
+            <h3> Tuesday </h3>
+            #Pending for input of photos
+            <p> {{ tuesdayMealName }}</p>
+            <p> Price:{{ tuesdayMealPrice }}</p>
+        </div>
+
+        <div class="daysConfirmation"> #Wednesday
+            <h3> Wednesday </h3>
+            #Pending for input of photos
+            <p> {{ wednesdayMealName }}</p>
+            <p> Price:{{ wednesdayMealPrice }}</p>
+        </div>
+
+        <div class="daysConfirmation"> #Thursday
+            <h3> Thursday </h3>
+            #Pending for input of photos
+            <p> {{ thursdayMealName }}</p>
+            <p> Price:{{ thursdayMealPrice }}</p>
+        </div>
+
+        <div class="daysConfirmation"> #Friday
+            <h3> Friday </h3>
+            #Pending for input of photos
+            <p> {{ fridayMealName }}</p>
+            <p> Price:{{ fridayMealPrice }}</p>
+        </div>
+
+        <h3> Total: {{ totalPrice }}</h3> #Total Price (Pending Confirmation)
+        <button class="confirmationButton">Confirm & Proceed to Payment </button>
+    </div>
+
+{% endblock %}
