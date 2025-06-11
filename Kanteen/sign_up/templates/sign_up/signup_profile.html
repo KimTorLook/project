@@ -1,0 +1,40 @@
+{% extends "base1.html" %}
+{% load static %}
+
+{% block body_content %}
+<style>
+    .text {color : #0009a6 ;
+text-shadow:
+   -1px -1px 0 #ffffff,
+    1px -1px 0 #ffffff,
+    -1px 1px 0 #ffffff,
+     1px 1px 0 #ffffff;
+}
+
+</style>
+<br>
+<br>
+<div class = "container">
+    <form method = "POST" >
+      {% csrf_token %}
+      <table><tr><td>
+      <h3 class = 'text'>STUDENT_ID: </h3></td><td><input type ="text" name = "student_id" id = "student_id"/></td>
+      </tr><tr><td>
+      <h3 class = 'text'>First_NAME: </h3></td><td><input type ="text" name = "first_name" id = "first_name"/></td>
+      </tr><tr><td>
+      <h3 class = 'text'>LAST_NAME: </h3></td><td><input type ="text" name = "last_name" id = "last_name"/></td>
+      </tr><tr><td>
+      <h3 class = 'text'>DATE_OF_BIRTH: </h3></td><td><input type ="date" name = "date_of-birth" id = "date_of-birth"/></td>
+      </tr><tr><td>
+      <h3 class = 'text'>EMAIL: </h3></td><td><input type ="email" name = "email" id = "email"/></td>
+      </tr><tr><td>
+      <h3 class = 'text'>SCHOOL_ID: </h3></td><td><input type ="text" name = "school_id" id = "school_id"/></td>
+      </tr><tr><td>
+      <button class="btn btn-success" type="submit">Signup</button></td>
+      </tr>
+      </table>
+    </form>
+
+</div>
+
+{% endblock %}

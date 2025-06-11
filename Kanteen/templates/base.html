@@ -9,7 +9,7 @@
 <body>
     <div class="container">
     {% if request.user.is_authenticated %}
-        <H3> welcome {{ user.name }}</H3>
+        <H3> Logo welcome {{ user.name }}</H3>
     {% else %}
         <form method="get" action="{% url 'login' %}">
             {% csrf_token %}
