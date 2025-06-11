@@ -29,7 +29,7 @@ class School(models.Model):
 
 class Student(models.Model):
     stid = models.AutoField(primary_key=True)
-    student_id = models.CharField(max_length=20, editable=False)
+    student_id = models.CharField(max_length=20)
     first_name = models.CharField(max_length=60, blank=True, null=True)
     last_name = models.CharField(max_length=30, blank=True, null=True)
     date_of_birth = models.DateField(auto_now=False, blank=True, null=True)
@@ -52,8 +52,8 @@ class Main_Course(models.Model): # main course menu
     main_course_id = models.AutoField(primary_key=True)
     main_course_name = models.CharField(max_length=150, blank=True, null=True)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
-    main_course_cost = models.IntegerField(blank=True, null=True)
-    main_course_price = models.IntegerField(blank=True, null=True)
+    main_course_cost = models.IntegerField(blank=True, null=True, default=20)
+    main_course_price = models.IntegerField(blank=True, null=True, default=60)
     main_course_img = models.ImageField(upload_to="main_course", null=True)
     #<img src="{% static ' order_app/main_course_img.jpeg' %}" alt="">
 
@@ -66,17 +66,15 @@ class Order(models.Model):
     order_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     order_date_time = models.DateTimeField(auto_now=False, blank=True, null=True)
     school = models.ForeignKey(School, on_delete=models.CASCADE)
+    student_name = models.ForeignKey(Student, on_delete=models.CASCADE)
+    meal1 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal1", blank=True, null=True, default="叉燒蛋飯")
+    meal3 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal3", blank=True, null=True, default="叉燒蛋飯")
+    meal2 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal2", blank=True, null=True, default="叉燒蛋飯")
+    meal4 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal4", blank=True, null=True, default="叉燒蛋飯")
+    meal5 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal5", blank=True, null=True, default="叉燒蛋飯")
+    total_price = models.IntegerField(blank=True, null=True, default=300)
+    payment_method = models.CharField(max_length=50, blank=True, null=True, default="Payme")
     confirm_payment = models.BooleanField(blank=True, null=True)
-    meal1 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal1", blank=True, null=True)
-    meal2 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal2", blank=True, null=True)
-    meal3 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal3", blank=True, null=True)
-    meal4 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal4", blank=True, null=True)
-    meal5 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal5", blank=True, null=True)
-    payment_method = models.CharField(max_length=50, blank=True, null=True)
-    price = models.IntegerField(blank=True, null=True)
-
-    
 
     def __str__(self):
         return f"{self.order_id} - {self.order_date_time}"
-        

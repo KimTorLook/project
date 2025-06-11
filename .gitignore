@@ -406,3 +406,5 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /Kanteen/kanteen/__pycache__
+/Kanteen/order_app/__pycache__
+/Kanteen/order_app/migrations/__pycache__

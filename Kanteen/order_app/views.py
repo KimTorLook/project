@@ -10,6 +10,19 @@ def random_restaurent_for_5_days():
         random_restaurent_list.append(x)  
     return random_restaurent_list
 
+def get_main_course():
+    restaurant_list = random_restaurent_for_5_days()
+    random_main_course_for_a_day = []
+    for x in restaurant_list:
+        random_main_course_for_day_x=[]
+        random_main_course_1 = Main_Course.objects.get(restaurant = x)
+        random_main_course_2 = Main_Course.objects.get(restaurant = x)
+        random_main_course_for_day_x.append(random_main_course_1,random_main_course_2)
+        random_main_course_for_a_day.extend(random_main_course_for_day_x)
+    print(random_main_course_for_a_day)
+    # main_course = Main_Course.objects.filter(restaurant__restaurant_name="cafe de coral")
+
+
 
 def ordering(request):
          
@@ -17,7 +30,8 @@ def ordering(request):
         orders = Order.objects.all() 
         context = {
             "orders": orders,
-            "random_restaurent_list":random_restaurent_for_5_days()  
+            "random_restaurent_list":random_restaurent_for_5_days(),
+            "random_main_course" : get_main_course()
         }
 
         return render(request, "order_app/ordering.html", context)
