@@ -1,15 +1,14 @@
-{% extends "base2.html" %}
+{% extends "base.html" %}
 {% load static %}
-
 {% block body_content %}
 
 This is Homepage
 <div class = "row">
-    <a href="{% url 'menu_select' %}">
+   <!-- <a href="{x% url 'menu_select' %x}">-->
 <div class = "col-5" >This is Normal menu</a></div>
 
 <div class = "col-5" >This is ColorBox menu
-<a href="{% url 'colorbox_select' %}">
-<img src="{% static 'colorbox_rotation1.gif' %}" width = "400" height = "400" alt = "colorbox1.jpg"></a></div>
+<!--a href="{x% url 'colorbox_select' %x}">-->
+<!--<img src="{x% static 'colorbox_rotation1.gif' %x}" width = "400" height = "400" alt = "colorbox1.jpg">--></a></div>
 </div>
 {% endblock %}
