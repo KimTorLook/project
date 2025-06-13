@@ -54,7 +54,7 @@ class Main_Course(models.Model): # main course menu
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     main_course_cost = models.IntegerField(blank=True, null=True, default=20)
     main_course_price = models.IntegerField(blank=True, null=True, default=60)
-    main_course_img = models.ImageField(upload_to="main_course", null=True)
+    main_course_img = models.ImageField("Image", upload_to="main_course", null=True)
     #<img src="{% static ' order_app/main_course_img.jpeg' %}" alt="">
 
     def __str__(self):
@@ -76,5 +76,18 @@ class Order(models.Model):
     payment_method = models.CharField(max_length=50, blank=True, null=True, default="Payme")
     confirm_payment = models.BooleanField(blank=True, null=True)
 
+    def calculate_total_price(self):
+        meals = [self.meal1, self.meal2, self.meal3, self.meal4, self.meal5]
+        total = 0
+        for meal in meals:
+            if meal and meal.main_course_price: 
+                total += meal.main_course_price if meal.main_course_price is not None else 0
+        return total
+
+    def save(self):
+        self.total_price = self.calculate_total_price()
+        super().save()
+
     def __str__(self):
         return f"{self.order_id} - {self.order_date_time}"
+    

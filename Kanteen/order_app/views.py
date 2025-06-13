@@ -35,16 +35,39 @@ def get_main_course(): #random select 2 main courser for every weekday
     return list_for_the_week
 
 def get_photo():
-    photo = Main_Course.objects.filter("xxxxx")
+    #main_course_list():
+    main_course = list(Main_Course.objects.all())
+    main_course_list = []
+    for x in main_course:
+        y = str(x)
+        main_course_list.append(y)
+    selected_main_course = get_main_course()
+    
 
 def ordering(request):
     mainCourse = get_main_course()
+    #畀相
+    #main_course_list1 = main_course_list()
+
+    Monday_A = mainCourse[0][0]
+    Monday_B = mainCourse[0][1]
+    Tuesday_A = mainCourse[1][0]
+    Tuesday_B = mainCourse[1][1]
+    Wensday_A = mainCourse[2][0]
+    Wensday_B = mainCourse[2][1]
+    Thuesday_A = mainCourse[3][0]
+    Thuesday_B = mainCourse[3][1]
+    Friday_A = mainCourse[4][0]
+    Friday_B = mainCourse[4][1]
+        
+
+    #畀錢
     context = {
-        "Monday_A" : mainCourse[0][0],
-        "Monday_B" : mainCourse[0][1],
-        #畀相
+        "Monday_A" : Monday_A,
+        "Monday_A_photo" : Monday_B.main_course_image,
+        "Monday_B" : Monday_B,
         #畀錢
-        "Tuesday_A" : mainCourse[1][0],
+        "Tuesday_A" : Tuesday_A,
         "Tuesday_B" : mainCourse[1][1],
         "Wensday_A" : mainCourse[2][0],
         "Wensday_B" : mainCourse[2][1],
@@ -57,6 +80,28 @@ def ordering(request):
     
     return render(request, 'order_app/ordering.html', context)
 
+def create_order(request):
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            order = form.save()  # save 時會自動計算 total_price
+            return redirect('order_success')
+    else:
+        form = OrderForm()
+    return render(request, 'order_form.html', {'form': form})
+
+"""  OrderForm
+     price 必須要有value
+
+from django import forms
+from .models import Order
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ['school', 'student_name', 'meal1', 'meal2', 'meal3', 'meal4', 'meal5', 'payment_method', 'confirm_payment']
+        # 排除 total_price，因為它由模型自動計算
+"""
 
 
     
