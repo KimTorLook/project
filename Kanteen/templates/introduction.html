@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Index</title>
-</head>
+{% extends "base.html" %}
+{% load static %}
+
   <style>
     .large-text{
       font-size: 1.5rem;
     }
   </style>
-<body>
+{% block body_content %}
+
   <p class="large-text">
     您好！歡迎來到 Kanteen，一個專為港九區中小學生提供健康美味餐盒的
     網上訂購平台。
@@ -23,6 +21,4 @@
   <p class="large-text">
     我們致力於為香港的下一代提供優質飲食，陪伴他們健康成長！
   </p>
-
-</body>
-</html>
+{% endblock %}

@@ -26,7 +26,6 @@ class School(models.Model):
     def __str__(self):
         return self.school_name
     
-
 class Student(models.Model):
     stid = models.AutoField(primary_key=True)
     student_id = models.CharField(max_length=20)
@@ -35,11 +34,10 @@ class Student(models.Model):
     date_of_birth = models.DateField(auto_now=False, blank=True, null=True)
     Email = models.EmailField(blank=True, null=True, unique=True)
     is_active=models.BooleanField(blank=False, null=False)
-    school = models.ForeignKey(School, on_delete=models.CASCADE)
+    school = models.ForeignKey(School, on_delete=models.PROTECT)
     
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
-
 
 class Restaurant(models.Model):
     restaurant_id = models.AutoField(primary_key=True)
@@ -59,19 +57,17 @@ class Main_Course(models.Model): # main course menu
 
     def __str__(self):
         return self.main_course_name
-    
- 
 
 class Order(models.Model):
     order_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     order_date_time = models.DateTimeField(auto_now=False, blank=True, null=True)
     school = models.ForeignKey(School, on_delete=models.CASCADE)
     student_name = models.ForeignKey(Student, on_delete=models.CASCADE)
-    meal1 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal1", blank=True, null=True, default="叉燒蛋飯")
-    meal3 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal3", blank=True, null=True, default="叉燒蛋飯")
-    meal2 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal2", blank=True, null=True, default="叉燒蛋飯")
-    meal4 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal4", blank=True, null=True, default="叉燒蛋飯")
-    meal5 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal5", blank=True, null=True, default="叉燒蛋飯")
+    meal1 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal1", blank=True, null=True, default="1")
+    meal2 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal2", blank=True, null=True, default="1")
+    meal3 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal3", blank=True, null=True, default="1")
+    meal4 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal4", blank=True, null=True, default="1")
+    meal5 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal5", blank=True, null=True, default="1")
     total_price = models.IntegerField(blank=True, null=True, default=300)
     payment_method = models.CharField(max_length=50, blank=True, null=True, default="Payme")
     confirm_payment = models.BooleanField(blank=True, null=True)

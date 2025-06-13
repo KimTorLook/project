@@ -10,23 +10,14 @@ def get_main_course(): #random select 2 main courser for every weekday
     for day in range(1,6):
         #random the restaurent
         restaurent = choices(restaurents)  #done
-        print(restaurent)
+        #print(restaurent)
         list_for_today = []
         #random the meal1
         main_course_1_list = list(Main_Course.objects.filter(restaurant__restaurant_name = restaurent[0]))
-        main_course_1_list_str = []
-        for main_course in main_course_1_list:
-            main_course_str = str(main_course)
-            main_course_1_list_str.append(main_course_str)
-        main_course_1 = choice(main_course_1_list_str)
-        #print("main_course1",main_course_1)
-
+        main_course_1 = choice(main_course_1_list)
         #random the meal2
-        #print("course_1_list", main_course_1_list_str)
-        main_course_1_list_str.remove(main_course_1)
-        #print("course_2_list", main_course_1_list_str)
-        main_course_2 = choice(main_course_1_list_str)
-        #print("main_course2", main_course_1_list_str)
+        main_course_1_list.remove(main_course_1)
+        main_course_2 = choice(main_course_1_list)
         list_for_today.append(main_course_1)
         list_for_today.append(main_course_2)
         list_for_the_week.append(list_for_today)
@@ -34,16 +25,12 @@ def get_main_course(): #random select 2 main courser for every weekday
     print(list_for_the_week)
     return list_for_the_week
 
-def get_photo():
-    photo = Main_Course.objects.filter("xxxxx")
 
 def ordering(request):
     mainCourse = get_main_course()
     context = {
         "Monday_A" : mainCourse[0][0],
         "Monday_B" : mainCourse[0][1],
-        #畀相
-        #畀錢
         "Tuesday_A" : mainCourse[1][0],
         "Tuesday_B" : mainCourse[1][1],
         "Wensday_A" : mainCourse[2][0],
@@ -52,16 +39,16 @@ def ordering(request):
         "Thuesday_B" : mainCourse[3][1],
         "Friday_A" : mainCourse[4][0],
         "Friday_B" : mainCourse[4][1],
-        
         }
-    
-    return render(request, 'order_app/ordering.html', context)
+    return render(request, 'order_app/ordering2.html', context)
 
 
 
     
-def orderConfirmation(request):
+def orderConfirmation(request, x):
+    a = Order.objects.get(order_id=x)
     confirmedData = {
+
         'Monday': {'mealImage.url': 'pathToImage', 'mealName': 'chosenMealName', 'price': 0},
         'Tuesday': {'mealImage.url': 'pathToImage', 'mealName': 'chosenMealName', 'price': 0},
         'Wednesday': {'mealImage.url': 'pathToImage', 'mealName': 'chosenMealName', 'price': 0},
