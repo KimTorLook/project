@@ -1,37 +1,44 @@
 from django.contrib import admin
 from .models import Student,School, Restaurant, Main_Course, Order
 # Register your models here.
-admin.site.register(Student)
-admin.site.register(School)
-admin.site.register(Restaurant)
-admin.site.register(Main_Course)
-admin.site.register(Order)
 
-"""
-@admin.register(MealCombination)
-class MealCombinationAdmin(admin.ModelAdmin):
-    list_display = ('meal1','meal2', 'meal3', 'meal4', 'meal5')
-    list_filter = ( 'combination_id', "meal1")
-    search_fields = ('main_course__main_course_name',)
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('order_id', 'order_date_time', 'payment_method', 'school')
     list_filter = ('school', 'payment_method')
     search_fields = ('order_id',)
-    #inlines = [MealCombinationnline]  # 內聯顯示 OrderMeal
     extra = 5 
 
-class MealCombinationInline(admin.TabularInline):
-    model = MealCombination
-    extra = 5
+@admin.register(Main_Course)
+class MainCourseAdmin(admin.ModelAdmin):
+    list_display = ('main_course_name', 'restaurant', 'main_course_price', 'main_course_cost')
+    list_filter = ('restaurant',)
+    search_fields = ('main_course_name', 'restaurant__restaurant_name')  
+    readonly_fields = ('main_course_id',)
+    fieldsets = (
+        (None, {
+            'fields': ('main_course_id', 'main_course_name', 'restaurant', 'main_course_cost', 'main_course_price', 'main_course_img')
+        }),
+    )
 
-from django.contrib import admin
-from .models import Student,School, Restaurant, Order, Main_Course, MealCombination
-# Register your models here.
-admin.site.register(Student)
-admin.site.register(School)
-admin.site.register(Restaurant)
-admin.site.register(Order)
-admin.site.register(Main_Course)
-admin.site.register(MealCombination)"""
+# Restaurant Admin
+@admin.register(Restaurant)
+class RestaurantAdmin(admin.ModelAdmin):
+    list_display = ('restaurant_name',)  
+    list_filter = () 
+    search_fields = ('restaurant_name',)
+
+# School Admin
+@admin.register(School)
+class SchoolAdmin(admin.ModelAdmin):
+    list_display = ('school_name',)  
+    list_filter = ()
+    search_fields = ('school_name',)
+
+# Student Admin
+@admin.register(Student)
+class StudentAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name', 'date_of_birth', 'Email','school','is_active' )  
+    list_filter = ('school',)
+    search_fields = ('first_name',)

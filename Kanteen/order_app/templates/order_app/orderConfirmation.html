@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-
 {% block title %} Order Confirmation {% endblock %}
-
 {% block body_content %}
     <h2> Confirmation </h2>
     <div class="confirmationContainer">
@@ -46,3 +44,16 @@
     </div>
 
 {% endblock %}
+
+
+    <!-- 表單提交 -->
+    <form id="orderForm" method="post" action="{% url 'create_order' %}">
+        {% csrf_token %}
+        <!-- 隱藏字段儲存選擇的餐點 -->
+        <input type="hidden" name="meal1" id="meal_monday">
+        <input type="hidden" name="meal2" id="meal_tuesday">
+        <input type="hidden" name="meal3" id="meal_wednesday">
+        <input type="hidden" name="meal4" id="meal_thursday">
+        <input type="hidden" name="meal5" id="meal_friday">
+        <button type="submit" class="btn btn-success mt-3">確定訂單</button>
+    </form>

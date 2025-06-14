@@ -1,60 +1,217 @@
 {% extends "base.html" %}
 {% load static %}
-{% block body_content %}
+{% block main_contact %}
 
-<h1>this is ordering page</h1> 
-星期一 </br>
-    <img src="{{Monday_A.main_course_img.url}}" width = "260" height = "260" ></br>
-        名稱:{{Monday_A.main_course_name}} </br> 
-        價錢︰{{Monday_A.main_course_price}}     
-        <button ></button></br>
-    <img src="{{Monday_B.main_course_img.url}}" width = "260" height = "260" ></br>
-        名稱:{{Monday_B.main_course_name}} </br>   
-        價錢︰{{Monday_B.main_course_price}} </br>      
-        <button ></button></br>
+<h1>訂餐頁面</h1>
 
-星期二 </br>
-    <img src="{{Tuesday_A.main_course_img.url}}" width = "260" height = "260" ></br>
-        名稱:{{Tuesday_A.main_course_name}}</br>
-        價錢︰{{Tuesday_A.main_course_price}} </br> 
-        <button ></button>    </br>
-        <img src="{{Tuesday_B.main_course_img.url}}" width = "260" height = "260" ></br>
-        名稱:{{Tuesday_B.main_course_name}}</br>
-        價錢︰{{Tuesday_B.main_course_price}}</br> 
-        <button ></button></br>
-星期三 </br>
-    <img src="{{Wensday_A.main_course_img.url}}" width = "260" height = "260" ></br>
-        名稱:{{Wensday_A.main_course_name}}</br>
-        價錢︰{{Wensday_A.main_course_price}} </br>
-        <button ></button></br>
+{% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+<!-- 使用 Bootstrap 容器 -->
+<div class="container">
+    <!-- 星期一 -->
+    <h3>星期一</h3>
+    <div class="row mb-4">
+        <!-- Monday_A -->
+        <div class="col-md-6">
+            <div class="card">
+                {% if Monday_A.main_course_img %}
+                    <img src="{{ Monday_A.main_course_img.url }}" class="card-img-top" alt="{{ Monday_A.main_course_name|default:'無名稱' }}" style="width: 260px; height: 260px; object-fit: cover; margin: auto;">
+                {% else %}
+                    <img src="{% static 'order_app/placeholder.jpg' %}" class="card-img-top" alt="無圖片" style="width: 260px; height: 260px; object-fit: cover; margin: auto;">
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title">名稱: {{ Monday_A.main_course_name|default:"未命名" }}</h5>
+                    <p class="card-text">價格: HK${{ Monday_A.main_course_price|default:0 }}</p>
+                    <button type="button" class="btn btn-primary select-meal" data-meal-id="{{ Monday_A.main_course_id }}" data-day="monday">選擇</button>
+                </div>
+            </div>
+        </div>
+        <!-- Monday_B -->
+        <div class="col-md-6">
+            <div class="card">
+                {% if Monday_B.main_course_img %}
+                    <img src="{{ Monday_B.main_course_img.url }}" class="card-img-top" alt="{{ Monday_B.main_course_name|default:'無名稱' }}" style="width: 260px; height: 260px; object-fit: cover; margin: auto;">
+                {% else %}
+                    <img src="{% static 'order_app/placeholder.jpg' %}" class="card-img-top" alt="無圖片" style="width: 260px; height: 260px; object-fit: cover; margin: auto;">
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title">名稱: {{ Monday_B.main_course_name|default:"未命名" }}</h5>
+                    <p class="card-text">價格: HK${{ Monday_B.main_course_price|default:0 }}</p>
+                    <button type="button" class="btn btn-primary select-meal" data-meal-id="{{ Monday_B.main_course_id }}" data-day="monday">選擇</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <img src="{{Wensday_B.main_course_img.url}}" width = "260" height = "260" ></br>
-        名稱:{{Wensday_B.main_course_name}}</br> 
-        價錢︰{{Wensday_B.main_course_price}} </br>     
-    <button ></button></br>
+    <!-- 星期二 -->
+    <h3>星期二</h3>
+    <div class="row mb-4">
+        <!-- Tuesday_A -->
+        <div class="col-md-6">
+            <div class="card">
+                {% if Tuesday_A.main_course_img %}
+                    <img src="{{ Tuesday_A.main_course_img.url }}" class="card-img-top" alt="{{ Tuesday_A.main_course_name|default:'無名稱' }}" style="width: 260px; height: 260px; object-fit: cover; margin: auto;">
+                {% else %}
+                    <img src="{% static 'order_app/placeholder.jpg' %}" class="card-img-top" alt="無圖片" style="width: 260px; height: 260px; object-fit: cover; margin: auto;">
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title">名稱: {{ Tuesday_A.main_course_name|default:"未命名" }}</h5>
+                    <p class="card-text">價格: HK${{ Tuesday_A.main_course_price|default:0 }}</p>
+                    <button type="button" class="btn btn-primary select-meal" data-meal-id="{{ Tuesday_A.main_course_id }}" data-day="tuesday">選擇</button>
+                </div>
+            </div>
+        </div>
+        <!-- Tuesday_B -->
+        <div class="col-md-6">
+            <div class="card">
+                {% if Tuesday_B.main_course_img %}
+                    <img src="{{ Tuesday_B.main_course_img.url }}" class="card-img-top" alt="{{ Tuesday_B.main_course_name|default:'無名稱' }}" style="width: 260px; height: 260px; object-fit: cover; margin: auto;">
+                {% else %}
+                    <img src="{% static 'order_app/placeholder.jpg' %}" class="card-img-top" alt="無圖片" style="width: 260px; height: 260px; object-fit: cover; margin: auto;">
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title">名稱: {{ Tuesday_B.main_course_name|default:"未命名" }}</h5>
+                    <p class="card-text">價格: HK${{ Tuesday_B.main_course_price|default:0 }}</p>
+                    <button type="button" class="btn btn-primary select-meal" data-meal-id="{{ Tuesday_B.main_course_id }}" data-day="tuesday">選擇</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-星期四 </br>
-    <img src="{{Thuesday_A.main_course_img.url}}" width = "260" height = "260" ></br>
-        名稱:{{Thuesday_A.main_course_name}}</br>   
-        價錢︰{{Thuesday_A.main_course_price}}</br>      
-        <button ></button>        </br>
+    <!-- 星期三 -->
+    <h3>星期三</h3>
+    <div class="row mb-4">
+        <!-- Wednesday_A -->
+        <div class="col-md-6">
+            <div class="card">
+                {% if Wednesday_A.main_course_img %}
+                    <img src="{{ Wednesday_A.main_course_img.url }}" class="card-img-top" alt="{{ Wednesday_A.main_course_name|default:'無名稱' }}" style="width: 260px; height: 260px; object-fit: cover; margin: auto;">
+                {% else %}
+                    <img src="{% static 'order_app/placeholder.jpg' %}" class="card-img-top" alt="無圖片" style="width: 260px; height: 260px; object-fit: cover; margin: auto;">
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title">名稱: {{ Wednesday_A.main_course_name|default:"未命名" }}</h5>
+                    <p class="card-text">價格: HK${{ Wednesday_A.main_course_price|default:0 }}</p>
+                    <button type="button" class="btn btn-primary select-meal" data-meal-id="{{ Wednesday_A.main_course_id }}" data-day="wednesday">選擇</button>
+                </div>
+            </div>
+        </div>
+        <!-- Wednesday_B -->
+        <div class="col-md-6">
+            <div class="card">
+                {% if Wednesday_B.main_course_img %}
+                    <img src="{{ Wednesday_B.main_course_img.url }}" class="card-img-top" alt="{{ Wednesday_B.main_course_name|default:'無名稱' }}" style="width: 260px; height: 260px; object-fit: cover; margin: auto;">
+                {% else %}
+                    <img src="{% static 'order_app/placeholder.jpg' %}" class="card-img-top" alt="無圖片" style="width: 260px; height: 260px; object-fit: cover; margin: auto;">
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title">名稱: {{ Wednesday_B.main_course_name|default:"未命名" }}</h5>
+                    <p class="card-text">價格: HK${{ Wednesday_B.main_course_price|default:0 }}</p>
+                    <button type="button" class="btn btn-primary select-meal" data-meal-id="{{ Wednesday_B.main_course_id }}" data-day="wednesday">選擇</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <img src="{{Thuesday_B.main_course_img.url}}" width = "260" height = "260" ></br>
-        名稱:{{Thuesday_B.main_course_name}}</br>   
-        價錢︰{{Thuesday_B.main_course_price}}</br>      
-        <button ></button></br>
+    <!-- 星期四 -->
+    <h3>星期四</h3>
+    <div class="row mb-4">
+        <!-- Thursday_A -->
+        <div class="col-md-6">
+            <div class="card">
+                {% if Thursday_A.main_course_img %}
+                    <img src="{{ Thursday_A.main_course_img.url }}" class="card-img-top" alt="{{ Thursday_A.main_course_name|default:'無名稱' }}" style="width: 260px; height: 260px; object-fit: cover; margin: auto;">
+                {% else %}
+                    <img src="{% static 'order_app/placeholder.jpg' %}" class="card-img-top" alt="無圖片" style="width: 260px; height: 260px; object-fit: cover; margin: auto;">
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title">名稱: {{ Thursday_A.main_course_name|default:"未命名" }}</h5>
+                    <p class="card-text">價格: HK${{ Thursday_A.main_course_price|default:0 }}</p>
+                    <button type="button" class="btn btn-primary select-meal" data-meal-id="{{ Thursday_A.main_course_id }}" data-day="thursday">選擇</button>
+                </div>
+            </div>
+        </div>
+        <!-- Thursday_B -->
+        <div class="col-md-6">
+            <div class="card">
+                {% if Thursday_B.main_course_img %}
+                    <img src="{{ Thursday_B.main_course_img.url }}" class="card-img-top" alt="{{ Thursday_B.main_course_name|default:'無名稱' }}" style="width: 260px; height: 260px; object-fit: cover; margin: auto;">
+                {% else %}
+                    <img src="{% static 'order_app/placeholder.jpg' %}" class="card-img-top" alt="無圖片" style="width: 260px; height: 260px; object-fit: cover; margin: auto;">
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title">名稱: {{ Thursday_B.main_course_name|default:"未命名" }}</h5>
+                    <p class="card-text">價格: HK${{ Thursday_B.main_course_price|default:0 }}</p>
+                    <button type="button" class="btn btn-primary select-meal" data-meal-id="{{ Thursday_B.main_course_id }}" data-day="thursday">選擇</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-星期五 </br>
-    <img src="{{Friday_A.main_course_img.url}}" width = "260" height = "260" ></br>
-        名稱:{{Friday_A.main_course_name}}</br>  
-        價錢︰{{Friday_A.main_course_price}}</br>
-        <button ></button></br>
+    <!-- 星期五 -->
+    <h3>星期五</h3>
+    <div class="row mb-4">
+        <!-- Friday_A -->
+        <div class="col-md-6">
+            <div class="card">
+                {% if Friday_A.main_course_img %}
+                    <img src="{{ Friday_A.main_course_img.url }}" class="card-img-top" alt="{{ Friday_A.main_course_name|default:'無名稱' }}" style="width: 260px; height: 260px; object-fit: cover; margin: auto;">
+                {% else %}
+                    <img src="{% static 'order_app/placeholder.jpg' %}" class="card-img-top" alt="無圖片" style="width: 260px; height: 260px; object-fit: cover; margin: auto;">
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title">名稱: {{ Friday_A.main_course_name|default:"未命名" }}</h5>
+                    <p class="card-text">價格: HK${{ Friday_A.main_course_price|default:0 }}</p>
+                    <button type="button" class="btn btn-primary select-meal" data-meal-id="{{ Friday_A.main_course_id }}" data-day="friday">選擇</button>
+                </div>
+            </div>
+        </div>
+        <!-- Friday_B -->
+        <div class="col-md-6">
+            <div class="card">
+                {% if Friday_B.main_course_img %}
+                    <img src="{{ Friday_B.main_course_img.url }}" class="card-img-top" alt="{{ Friday_B.main_course_name|default:'無名稱' }}" style="width: 260px; height: 260px; object-fit: cover; margin: auto;">
+                {% else %}
+                    <img src="{% static 'order_app/placeholder.jpg' %}" class="card-img-top" alt="無圖片" style="width: 260px; height: 260px; object-fit: cover; margin: auto;">
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title">名稱: {{ Friday_B.main_course_name|default:"未命名" }}</h5>
+                    <p class="card-text">價格: HK${{ Friday_B.main_course_price|default:0 }}</p>
+                    <button type="button" class="btn btn-primary select-meal" data-meal-id="{{ Friday_B.main_course_id }}" data-day="friday">選擇</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <img src="{{Friday_B.main_course_img.url}}" width = "260" height = "260" ></br>
-        名稱:{{Friday_B.main_course_name}}</br>
-        價錢︰{{Friday_B.main_course_price}}</br>
-        <button ></button></br>
-</br>
-    
+    <!-- 表單提交 -->
+    <form id="orderForm" method="post" action="{% url 'create_order' %}">
+        {% csrf_token %}
+        <input type="hidden" name="meal1" id="meal_monday">
+        <input type="hidden" name="meal2" id="meal_tuesday">
+        <input type="hidden" name="meal3" id="meal_wednesday">
+        <input type="hidden" name="meal4" id="meal_thursday">
+        <input type="hidden" name="meal5" id="meal_friday">
+        <button type="submit" class="btn btn-success mt-3">確定訂單</button>
+    </form>
+</div>
+
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- jQuery 和 JavaScript -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.select-meal').click(function() {
+            var mealId = $(this).data('meal-id');
+            var day = $(this).data('day');
+            $('#meal_' + day).val(mealId);
+            // 高亮選擇的按鈕
+            $(this).closest('.row').find('.select-meal').removeClass('btn-success').addClass('btn-primary');
+            $(this).removeClass('btn-primary').addClass('btn-success');
+        });
+    });
+</script>
 
 {% endblock %}

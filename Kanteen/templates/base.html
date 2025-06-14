@@ -2,24 +2,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KanTeen Login</title>
+  <!-- 1. Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- 2. Customize CSS -->
+  <style>
+    body {
+      background-color: #FBF4EB; /* 保留淺米色背景 */
+    }
+    /* Logo 1:1 scale */
+    .logo-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+    /* KanTeen Co Name Color */
+    .title-text {
+      line-height: 1;
+    }
+    /* Enlarge Co Name font size */
+    .title-text {
+      color: #3F5057;
+      font-weight: 700;           /* bold */
+      font-size: 7rem;            /* larger size of font */
+      text-align: center;         /* center */
+      line-height: 1;
+    }
+    /* Large text for paragraphs */
+    .large-text {
+      font-size: 2rem; /* Bootstrap fs-5 等效 */
+    }
+    /* Overwrite Bootstrap's preset primary & success button */
+    .btn-primary,
+    .btn-success {
+      background-color: #518d7d !important;
+      border-color: #518d7d !important;
+      color: #fff !important; /* wordings in white color */
+    }
+    /* hover/focus effect */
+    .btn-primary:hover,
+    .btn-success:hover,
+    .btn-primary:focus,
+    .btn-success:focus {
+      background-color: #437363 !important; /* darker color for press button effect */
+      border-color: #437363 !important;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-    {% if request.user.is_authenticated %}
-        <H3> Logo welcome {{ user.name }}</H3>
-    {% else %}
+  <div class="container py-4">
+    <!-- Row 1 -->
+    <div class="row align-items-center mb-5">
+      <!-- Left, 2 cols: Logo -->
+      <div class="col-2">
+        <img src="{% static 'KG_logo.jpg' %}" alt="KG Logo" class="logo-img">
+      </div>
+      <!-- Right, 10 cols: Topic -->
+      <div class="col-10">
+        <h1 class="title-text m-0">KanTeen</h1>
+      </div>
+    </div>
+    {% block menu %}
+      {% if request.user.is_authenticated %}
+        <h3>Logo welcome {{ user.name }}</h3>
+      {% else %}
         <form method="get" action="{% url 'login' %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-primary">Login</button>
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary">Login</button>
         </form>
-    {% endif %}
-
-    {% block body_content %}
+      {% endif %}
     {% endblock %}
-</div>
-
+    {% block main_content %}  <!-- 修正塊名稱為 main_content -->
+    {% endblock %}
+  </div>
+  <!-- 3. Bootstrap JS Bundle (include Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
