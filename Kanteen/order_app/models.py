@@ -28,6 +28,7 @@ class School(models.Model):
     
 class Student(models.Model):
     stid = models.AutoField(primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     student_id = models.CharField(max_length=20)
     first_name = models.CharField(max_length=60, blank=True, null=True)
     last_name = models.CharField(max_length=30, blank=True, null=True)
@@ -60,8 +61,7 @@ class Main_Course(models.Model): # main course menu
 
 class Order(models.Model):
     order_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    order_date_time = models.DateTimeField(auto_now=False, blank=True, null=True)
-    school = models.ForeignKey(School, on_delete=models.CASCADE)
+    order_date_time = models.DateTimeField(auto_now_add=True)
     student_name = models.ForeignKey(Student, on_delete=models.CASCADE)
     meal1 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal1", blank=True, null=True, default="1")
     meal2 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal2", blank=True, null=True, default="1")
@@ -70,7 +70,7 @@ class Order(models.Model):
     meal5 = models.ForeignKey(Main_Course, on_delete=models.CASCADE, related_name="meal5", blank=True, null=True, default="1")
     total_price = models.IntegerField(blank=True, null=True, default=300)
     payment_method = models.CharField(max_length=50, blank=True, null=True, default="Payme")
-    confirm_payment = models.BooleanField(blank=True, null=True)
+    confirm_payment = models.BooleanField(blank=True, null=True, default=False)
 
     def calculate_total_price(self):
         meals = [self.meal1, self.meal2, self.meal3, self.meal4, self.meal5]

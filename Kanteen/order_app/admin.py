@@ -5,8 +5,8 @@ from .models import Student,School, Restaurant, Main_Course, Order
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('order_id', 'order_date_time', 'payment_method', 'school')
-    list_filter = ('school', 'payment_method')
+    list_display = ('order_id', 'order_date_time', 'payment_method')
+    list_filter = ['payment_method']
     search_fields = ('order_id',)
     extra = 5 
 
@@ -39,6 +39,6 @@ class SchoolAdmin(admin.ModelAdmin):
 # Student Admin
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'date_of_birth', 'Email','school','is_active' )  
+    list_display = ('student_id', 'first_name', 'last_name', 'date_of_birth', 'Email','school','is_active' )  
     list_filter = ('school',)
     search_fields = ('first_name',)

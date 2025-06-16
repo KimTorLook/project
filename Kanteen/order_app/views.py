@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from order_app.models import Order, Main_Course, Restaurant
 from random import choice, choices
-from django.forms import ModelForm
+from .forms import OrderForm
 
 #做ording html
 def get_main_course(): #random select 2 main courser for every weekday
@@ -27,7 +27,14 @@ def get_main_course(): #random select 2 main courser for every weekday
 
 def ordering(request):
     mainCourse = get_main_course()
-    context = {
+    if request.method == "POST":
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = OrderForm()
+
+    context ={
         "Monday_A" : mainCourse[0][0],
         "Monday_B" : mainCourse[0][1],
         "Tuesday_A" : mainCourse[1][0],
@@ -38,24 +45,10 @@ def ordering(request):
         "Thursday_B" : mainCourse[3][1],
         "Friday_A" : mainCourse[4][0],
         "Friday_B" : mainCourse[4][1],
+        "form" : form
         }
     return render(request, 'order_app/ordering2.html', context)
 
-
-
-
-#做Ording
-class OrderForm(ModelForm):
-    class Meta:
-        model = Order
-        fields = ['school', 'student_name', 'meal1', 'meal2', 'meal3', 'meal4', 'meal5', 'payment_method', 'confirm_payment']
-        labels = {
-            'meal1': '星期一餐點',
-            'meal2': '星期二餐點',
-            'meal3': '星期三餐點',
-            'meal4': '星期四餐點',
-            'meal5': '星期五餐點',
-            }
 #做Ording
 def create_order(request):
     if request.method == "POST":
@@ -112,7 +105,7 @@ def create_order(request):
     return render(request, 'order_app/ordering2.html')
                     
 """
-def create_order(request):  #AI
+def create_order(request):  
     if request.method == 'POST':
         meal1 = request.POST.get('meal1')
         meal2 = request.POST.get('meal2')
@@ -138,9 +131,20 @@ def create_order(request):  #AI
 
 """
 
-
-
 def orderConfirmation(request):
+    form = OrderForm(request.POST)
+
+    if int(request.GET.get("confirmed", 0)) == 1:
+        form.save()
+        print("saved")
+
+    context = {
+        "form":form,
+        "confirmed": 0
+    }
+    return render(request, "order_app/orderConfirmation.html", context)
+
+def orderConfirmation_bk(request):
     # 假設獲取最新訂單（或根據 order_id 查詢）
     try:
         # 如果你想根據 order_id 查詢，需從 request 中傳遞 order_id

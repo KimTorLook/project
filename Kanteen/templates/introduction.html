@@ -2,67 +2,23 @@
 
 {% block title %} Order Confirmation {% endblock %}
 
-{% block body_content %}
-<div class="container py-4">
-
-  {% block menu %}
-    <!-- Row 2 -->
-    <div class="row">
-      <!-- Left, 2 cols: Form area -->
-      <div class="col-2">
-        <form action="#" method="post">
-          {% csrf_token %}
-          <div class="mb-3">
-            <label for="username" class="form-label">Username:</label>
-            <input
-              type="text"
-              id="username"
-              class="form-control">
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Password:</label>
-            <input
-              type="password"
-              id="password"
-              class="form-control">
-          </div>
-          <button
-            type="submit"
-            class="btn btn-success w-100 mb-2">
-            Login
-          </button>
-          <div class="mb-5">
-            <a href="#" class="d-block">Forget password?</a>
-          </div>
-          <p class="mb-2">Not a member?</p>
-          <button class="btn btn-primary w-100">Sign up</button>
-        </form>
-      </div>
-  {% endblock %}
-
-  {% block main_contact %}
-      <!-- Right, 10 cols: text -->
-      <div class="col-10">
-        <p class="large-text">
-          您好，歡迎來到 KanTeen — 香港一個專為港九區中小學生而設的網上健康餐盒訂購平台。
-        </p>
-        <p class="large-text">
-          我們堅信，良好飲食是孩子健康成長的基石。KanTeen 與專業營養師團隊合作，為學生度身訂造均衡營養的餐單，涵蓋香濃的西式燴飯、清新日式便當，以至經典中式家常菜，每款餐盒均選用新鮮優質食材，確保每一口都美味與健康兼備。
-        </p>
-        <p class="large-text">
-          透過我們簡便直觀的網上系統，家長及學校可輕鬆安排每日膳食，既省時又安心。我們致力於提升本地學生的飲食質素，為香港新一代築起健康未來。
-        </p>
-        <p class="large-text">
-          KanTeen，讓每一餐成就更好的明天。
-        </p>
-      </div>
+{% block main_content %}
+    <!-- Right, 10 cols: text -->
+    <div class="col-10">
+      <p class="large-text">
+        您好，歡迎來到 KanTeen — 香港一個專為港九區中小學生而設的網上健康餐盒訂購平台。
+      </p>
+      <p class="large-text">
+        我們堅信，良好飲食是孩子健康成長的基石。KanTeen 與專業營養師團隊合作，為學生度身訂造均衡營養的餐單，涵蓋香濃的西式燴飯、清新日式便當，以至經典中式家常菜，每款餐盒均選用新鮮優質食材，確保每一口都美味與健康兼備。
+      </p>
+      <p class="large-text">
+        透過我們簡便直觀的網上系統，家長及學校可輕鬆安排每日膳食，既省時又安心。我們致力於提升本地學生的飲食質素，為香港新一代築起健康未來。
+      </p>
+      <p class="large-text">
+        KanTeen，讓每一餐成就更好的明天。
+      </p>
     </div>
-
   </div>
-  {% endblock %}
-  <!-- 3. Bootstrap JS Bundle (include Popper) -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
-  </script>
 
+</div>
 {% endblock %}

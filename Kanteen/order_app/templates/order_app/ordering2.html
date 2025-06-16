@@ -1,14 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
-{% block main_contact %}
+{% block main_content %}
 
 <h1>訂餐頁面</h1>
 
 {% if error %}
     <div class="alert alert-danger">{{ error }}</div>
 {% endif %}
-<!-- 使用 Bootstrap 容器 -->
-<div class="container">
     <!-- 星期一 -->
     <h3>星期一</h3>
     <div class="row mb-4">
@@ -185,8 +183,9 @@
     </div>
 
     <!-- 表單提交 -->
-    <form id="orderForm" method="post" action="{% url 'create_order' %}">
+    <form id="orderForm" method="post" action="{% url "order_app:order_confirmation" %}">
         {% csrf_token %}
+        <input type="hidden" name="student_name" id="id_student_name" value="{{request.user.student.pk}}"/>
         <input type="hidden" name="meal1" id="meal_monday">
         <input type="hidden" name="meal2" id="meal_tuesday">
         <input type="hidden" name="meal3" id="meal_wednesday">
@@ -197,10 +196,6 @@
 </div>
 
 
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<!-- jQuery 和 JavaScript -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
         $('.select-meal').click(function() {

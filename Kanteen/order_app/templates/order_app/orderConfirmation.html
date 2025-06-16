@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 {% block title %} Order Confirmation {% endblock %}
-{% block body_content %}
+{% block main_content %}
     <h2> Confirmation </h2>
+    {{form.meal1}}
+    <form method="POST" action="{% url "order_app:order_confirmation" %}?confirmed=1">
+    {% csrf_token %}
+        {{form.as_p}}
+    <button type="submit">Confirmed</button>
+    </form>
+
     <div class="confirmationContainer">
 
         <div class="daysConfirmation"> <!--#Monday-->
