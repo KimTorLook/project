@@ -67,16 +67,32 @@
     </div>
     {% block menu %}
       {% if request.user.is_authenticated %}
-        <h3>Logo welcome {{ request.user.student.first_name }}</h3>
+        <h3>你好 {{ request.user.student.first_name }}</h3>
+        
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button type="submit">Logout</button>
+        </form>
+
+        <div>
+          <a href="{% url 'password_change' %}">Password Change</a>
+        </div>
+
+
       {% else %}
         <form method="get" action="{% url 'login' %}">
           {% csrf_token %}
-          <button type="submit" class="btn btn-primary">Login</button>
+          <button type="submit">Login</button>
         </form>
+
+        <div class="col">
+          <a href="{% url 'signup' %}" class="btn btn-primary">Signup</a>
+        </div>
+
       {% endif %}
     {% endblock %}
 
-    {% block main_content %}  <!-- 修正塊名稱為 main_content -->
+    {% block main_content %}  
     {% endblock %}
   </div>
   <!-- 3. Bootstrap JS Bundle (include Popper) -->

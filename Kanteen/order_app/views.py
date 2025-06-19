@@ -1,8 +1,15 @@
 from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from order_app.models import Order, Main_Course, Restaurant
 from random import choice, choices
 from .forms import OrderForm
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def mode_selection(request):
+        return render(request, 'order_app/mode_selection.html')
+
 
 #做ording html
 def get_main_course(): #random select 2 main courser for every weekday
@@ -25,6 +32,7 @@ def get_main_course(): #random select 2 main courser for every weekday
         list_for_the_week.append(list_for_today)
     return list_for_the_week
 
+@login_required
 def ordering(request):
     mainCourse = get_main_course()
     if request.method == "POST":
@@ -50,6 +58,7 @@ def ordering(request):
     return render(request, 'order_app/ordering2.html', context)
 
 #做Ording
+@login_required
 def create_order(request):
     if request.method == "POST":
         order_id = request.POST.get(order_id)
@@ -104,33 +113,7 @@ def create_order(request):
             return render(request, 'order_app/ordering2.html', {'error': '請選擇有效的餐點'})
     return render(request, 'order_app/ordering2.html')
                     
-"""
-def create_order(request):  
-    if request.method == 'POST':
-        meal1 = request.POST.get('meal1')
-        meal2 = request.POST.get('meal2')
-        meal3 = request.POST.get('meal3')
-        meal4 = request.POST.get('meal4')
-        meal5 = request.POST.get('meal5')
-        # 創建 Order 實例
-        order = Order.objects.create(
-            student_name=request.user.student,  # 假設用戶關聯學生
-            meal1=Main_Course.objects.get(id=meal1) if meal1 else None,
-            meal2=Main_Course.objects.get(id=meal2) if meal2 else None,
-            meal3=Main_Course.objects.get(id=meal3) if meal3 else None,
-            meal4=Main_Course.objects.get(id=meal4) if meal4 else None,
-            meal5=Main_Course.objects.get(id=meal5) if meal5 else None,
-        )
-        order.total_price = order.calculate_total_price()  # 假設有此方法
-        order.save()
-        return redirect('order_success')
-    return render(request, 'order_form.html', {'form': form})
-
-    #OrderForm
-    #price 必須要有value
-
-"""
-
+@login_required
 def orderConfirmation(request):
     form = OrderForm(request.POST)
     meal_1 = None
@@ -157,55 +140,7 @@ def orderConfirmation(request):
     }
     return render(request, "order_app/orderConfirmation.html", context)
 
-def orderConfirmation_bk(request):
-    # 假設獲取最新訂單（或根據 order_id 查詢）
-    try:
-        # 如果你想根據 order_id 查詢，需從 request 中傳遞 order_id
-        # 例如：order = Order.objects.get(order_id=request.GET.get('order_id'))
-        order = Order.objects.latest('order_date_time')  # 獲取最新訂單
-    except Order.DoesNotExist:
-        order = None
 
-    # 準備上下文數據
-    confirmedData = {
-        'Monday': {
-            'mealImage': order.meal1.main_course_img.url if order and order.meal1 else None,
-            'mealName': order.meal1.main_course_name if order and order.meal1 else '未選擇',
-            'price': order.meal1.main_course_price if order and order.meal1 else 0,
-        },
-        'Tuesday': {
-            'mealImage': order.meal2.main_course_img.url if order and order.meal2 else None,
-            'mealName': order.meal2.main_course_name if order and order.meal2 else '未選擇',
-            'price': order.meal2.main_course_price if order and order.meal2 else 0,
-        },
-        'Wednesday': {
-            'mealImage': order.meal3.main_course_img.url if order and order.meal3 else None,
-            'mealName': order.meal3.main_course_name if order and order.meal3 else '未選擇',
-            'price': order.meal3.main_course_price if order and order.meal3 else 0,
-        },
-        'Thursday': {
-            'mealImage': order.meal4.main_course_img.url if order and order.meal4 else None,
-            'mealName': order.meal4.main_course_name if order and order.meal4 else '未選擇',
-            'price': order.meal4.main_course_price if order and order.meal4 else 0,
-        },
-        'Friday': {
-            'mealImage': order.meal5.main_course_img.url if order and order.meal5 else None,
-            'mealName': order.meal5.main_course_name if order and order.meal5 else '未選擇',
-            'price': order.meal5.main_course_price if order and order.meal5 else 0,
-        },
-    }
-
-    total_price = order.total_price if order and order.total_price else sum(meal['price'] for meal in confirmedData.values())
-
-    context = {
-        'Monday': confirmedData['Monday'],
-        'Tuesday': confirmedData['Tuesday'],
-        'Wednesday': confirmedData['Wednesday'],
-        'Thursday': confirmedData['Thursday'],
-        'Friday': confirmedData['Friday'],
-        'total_price': total_price,
-    }
-    return render(request, "order_app/orderConfirmation.html", context)
-
+@login_required
 def thanks(request):
     return render(request, 'order_app/thanks.html')

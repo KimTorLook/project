@@ -9,7 +9,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('mode_selection/', include("order_app.urls")),
     path('signup/', include("sign_up.urls")),
-    path('accounts/', include("django.contrib.auth.urls"))
+    path('accounts/', include("django.contrib.auth.urls")),
 ]
 
 if settings.DEBUG:
