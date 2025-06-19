@@ -9,5 +9,6 @@ urlpatterns = [
     path("daily/confirmation/", views.orderConfirmation, name="order_confirmation"),
     path('order/create/', views.create_order, name='create_order'),
     path('order/success/', lambda request: render(request, 'order_success.html'), name='order_success'),
+    path('thanks', views.thanks, name="thanks")
 
 ]

@@ -133,13 +133,26 @@ def create_order(request):
 
 def orderConfirmation(request):
     form = OrderForm(request.POST)
+    meal_1 = None
+    total_price = 0
 
-    if int(request.GET.get("confirmed", 0)) == 1:
-        form.save()
-        print("saved")
+    if request.method == 'POST':
+        if form.is_valid():
+            if int(request.GET.get("confirmed", 0)) == 1:
+                form.save()
+                print("saved")
+                return redirect('order_app:thanks')
+
+            # 直接從 cleaned_data 獲取 Main_Course 物件
+        meal1 = form.cleaned_data.get('meal1')
+        if meal1:
+            total_price += meal1.main_course_price if meal1.main_course_price else 0
+
 
     context = {
         "form":form,
+        "meal1":meal_1,
+        "total_price":total_price,
         "confirmed": 0
     }
     return render(request, "order_app/orderConfirmation.html", context)
@@ -193,3 +206,6 @@ def orderConfirmation_bk(request):
         'total_price': total_price,
     }
     return render(request, "order_app/orderConfirmation.html", context)
+
+def thanks(request):
+    return render(request, 'order_app/thanks.html')

@@ -2,65 +2,31 @@
 {% block title %} Order Confirmation {% endblock %}
 {% block main_content %}
     <h2> Confirmation </h2>
-    {{form.meal1}}
-    <form method="POST" action="{% url "order_app:order_confirmation" %}?confirmed=1">
-    {% csrf_token %}
-        {{form.as_p}}
-    <button type="submit">Confirmed</button>
-    </form>
-
+    
     <div class="confirmationContainer">
-
+        
         <div class="daysConfirmation"> <!--#Monday-->
             <h3> Monday </h3>
-            <img src="{{ mondayMeal.image_url }}" alt="MondayMeal" width="200" height="200">
-            <p> {{ mondayMealName }}</p>
-            <p> Price:{{ mondayMealPrice }}</p>
+                {% if meal1 %}
+                    <img src="{{ meal1.main_course_img.url }}" alt="MondayMeal" width="200" height="200">
+                    <p> {{ meal1.main_course_name  }}</p>
+                    <p> Price:{{ meal1.main_course_price }}</p>
+                 {% else %}
+                    <p>No meal selected for Monday</p>
+                {% endif %}
+            
         </div>
-
-        <div class="daysConfirmation"> <!--Tuesday-->
-            <h3> Tuesday </h3>
-            <img src="{{ tuesdayMeal.image_url }}" alt="TuesdayMeal" width="200" height="200">
-            <p> {{ tuesdayMealName }}</p>
-            <p> Price:{{ tuesdayMealPrice }}</p>
-        </div>
-
-        <div class="daysConfirmation"> <!--Wednesday-->
-            <h3> Wednesday </h3>
-            <img src="{{ wednesdayMeal.image_url }}" alt="WednesdayMeal" width="200" height="200">
-            <p> {{ wednesdayMealName }}</p>
-            <p> Price:{{ wednesdayMealPrice }}</p>
-        </div>
-
-        <div class="daysConfirmation"> <!--Thursday-->
-            <h3> Thursday </h3>
-            <img src="{{ thursdayMeal.image_url }}" alt="ThursdayMeal" width="200" height="200">
-            <p> {{ thursdayMealName }}</p>
-            <p> Price:{{ thursdayMealPrice }}</p>
-        </div>
-
-        <div class="daysConfirmation"> <!--Friday-->
-            <h3> Friday </h3>
-            <img src="{{ fridayMeal.image_url }}" alt="FridayMeal" width="200" height="200">
-            <p> {{ fridayMealName }}</p>
-            <p> Price:{{ fridayMealPrice }}</p>
-        </div>
-
+        
+        
         <h3> Total: {{ totalPrice }}</h3> <!--Total Price (Pending Confirmation)-->
-        <button class="confirmationButton">Confirm & Proceed to Payment </button>
     </div>
-
-{% endblock %}
-
-
-    <!-- 表單提交 -->
-    <form id="orderForm" method="post" action="{% url 'create_order' %}">
+    <form method="POST" action="{% url "order_app:order_confirmation" %}?confirmed=1">
         {% csrf_token %}
-        <!-- 隱藏字段儲存選擇的餐點 -->
-        <input type="hidden" name="meal1" id="meal_monday">
-        <input type="hidden" name="meal2" id="meal_tuesday">
-        <input type="hidden" name="meal3" id="meal_wednesday">
-        <input type="hidden" name="meal4" id="meal_thursday">
-        <input type="hidden" name="meal5" id="meal_friday">
-        <button type="submit" class="btn btn-success mt-3">確定訂單</button>
+                Payment method
+                {{form.payment_method}} </br>
+        <button type="submit">Confirmed</button>
     </form>
+    
+    {% endblock %}
+    
+    
