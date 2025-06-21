@@ -3,63 +3,64 @@
 {% block title %} Order Confirmation {% endblock %}
 {% block main_content %}
 <br>
-    <h2> Confirmation </h2>
+    <h1> 確認餐點 </h1>
     <br>
     
     <div class="confirmationContainer">
         <div class="daysConfirmation"> <!--#Monday-->
             <h3> 星期一 </h3>
+            <h5>
                 {% if meal1 %}
                     <img src="{{ meal1.main_course_img.url }}" alt="MondayMeal" width="200" height="200">
                     <p> {{ meal1.main_course_name  }}</p>
                     <p> Price:{{ meal1.main_course_price }}</p>
                  {% else %}
                     <p>No meal selected for Monday</p>
-                {% endif %}
+                {% endif %}</h5>
         </div>
         
         <div class="daysConfirmation">
             <h3> 星期二 </h3>
-                {% if meal2 %}
+                <h5>{% if meal2 %}
                     <img src="{{ meal2.main_course_img.url }}" alt="TuesdayMeal" width="200" height="200">
                     <p> {{ meal2.main_course_name  }}</p>
                     <p> Price:{{ meal2.main_course_price }}</p>
                  {% else %}
                     <p>No meal selected for Monday</p>
-                {% endif %}
+                {% endif %}</h5>
         </div>
         
         <div class="daysConfirmation"> 
             <h3> 星期三 </h3>
-                {% if meal3 %}
+                <h5>{% if meal3 %}
                     <img src="{{ meal3.main_course_img.url }}" alt="WednesdayMeal" width="200" height="200">
                     <p> {{ meal3.main_course_name  }}</p>
                     <p> Price:{{ meal3.main_course_price }}</p>
                  {% else %}
                     <p>No meal selected for Monday</p>
-                {% endif %}
+                {% endif %}</h5>
         </div>
         
         <div class="daysConfirmation"> 
             <h3> 星期四 </h3>
-                {% if meal4 %}
+                <h5>{% if meal4 %}
                     <img src="{{ meal4.main_course_img.url }}" alt="ThursdayMeal" width="200" height="200">
                     <p> {{ meal4.main_course_name  }}</p>
                     <p> Price:{{ meal4.main_course_price }}</p>
                  {% else %}
                     <p>No meal selected for Monday</p>
-                {% endif %}
+                {% endif %}</h5>
         </div>
         
         <div class="daysConfirmation"> 
             <h3> 星期五 </h3>
-                {% if meal5 %}
+                <h5>{% if meal5 %}
                     <img src="{{ meal5.main_course_img.url }}" alt="FridayMeal" width="200" height="200">
                     <p> {{ meal5.main_course_name  }}</p>
                     <p> Price:{{ meal5.main_course_price }}</p>
                  {% else %}
                     <p>No meal selected for Monday</p>
-                {% endif %}
+                {% endif %}</h5>
         </div>
         
 

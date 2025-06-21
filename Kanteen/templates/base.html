@@ -71,20 +71,20 @@
         
         <form method="post" action="{% url 'logout' %}">
           {% csrf_token %}
-          <button type="submit">Logout</button>
+          <button type="submit">登出</button>
         </form>
 
         <div>
-          <a href="{% url 'password_change' %}">Password Change</a>
+          <a href="{% url 'password_change' %}">更改密碼</a>
         </div>
 
 
       {% else %}
         <form method="get" action="{% url 'login' %}">
           {% csrf_token %}
-          <button type="submit">Login</button>
+          <button type="submit">登入</button>
         </form>
-        <a href="{% url 'signup' %}" class="btn btn-primary">Signup</a>
+        <a href="{% url 'signup' %}" class="btn btn-primary">註冊</a>
 
       {% endif %}
     {% endblock %}

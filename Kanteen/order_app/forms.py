@@ -16,7 +16,7 @@ class OrderForm(ModelForm):
 class Order2Form(ModelForm):
     class Meta:
         model = Order
-        fields = ['student_name']
+        fields = ['student_name', 'meal1', 'meal2', 'meal3', 'meal4', 'meal5', 'payment_method']
         labels = {
             'meal1': '星期一餐點',
             'meal2': '星期二餐點',

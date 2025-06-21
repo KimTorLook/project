@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from order_app.models import Order, Main_Course, Restaurant
+from order_app.models import Order, Main_Course, Restaurant, Student
 from random import choice, choices
 from .forms import OrderForm, Order2Form
 from django.contrib.auth.decorators import login_required
@@ -121,9 +121,10 @@ def orderConfirmation(request):
     if request.method == 'POST':
         if form.is_valid():
             if int(request.GET.get("confirmed", 0)) == 1:
-                form.save()
+                order = form.save()
+                uuid = order.order_id
                 print("saved")
-                return redirect('order_app:thanks')
+                return redirect('order_app:thanks', order_uuid=uuid)
         else:
             return redirect('order_app:daily')
 
@@ -158,9 +159,11 @@ def orderConfirmation(request):
 
 
 @login_required
-def thanks(request):
-    display = Order2Form(request.POST)
+def thanks(request, order_uuid):
+    display = Order.objects.get(order_id = order_uuid)
+    
     context={
-        'display':display
+        'display': display,
+        'order_uuid': order_uuid
     }
     return render(request, 'order_app/thanks.html', context)
