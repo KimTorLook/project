@@ -84,10 +84,7 @@
           {% csrf_token %}
           <button type="submit">Login</button>
         </form>
-
-        <div class="col">
-          <a href="{% url 'signup' %}" class="btn btn-primary">Signup</a>
-        </div>
+        <a href="{% url 'signup' %}" class="btn btn-primary">Signup</a>
 
       {% endif %}
     {% endblock %}
