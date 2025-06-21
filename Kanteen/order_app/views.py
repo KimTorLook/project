@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from order_app.models import Order, Main_Course, Restaurant
 from random import choice, choices
-from .forms import OrderForm
+from .forms import OrderForm, Order2Form
 from django.contrib.auth.decorators import login_required
 
 @login_required
@@ -116,7 +116,6 @@ def create_order(request):
 @login_required
 def orderConfirmation(request):
     form = OrderForm(request.POST)
-    meal_1 = None
     total_price = 0
 
     if request.method == 'POST':
@@ -125,16 +124,33 @@ def orderConfirmation(request):
                 form.save()
                 print("saved")
                 return redirect('order_app:thanks')
+        else:
+            return redirect('order_app:daily')
 
             # 直接從 cleaned_data 獲取 Main_Course 物件
         meal1 = form.cleaned_data.get('meal1')
         if meal1:
             total_price += meal1.main_course_price if meal1.main_course_price else 0
-
+        meal2 = form.cleaned_data.get('meal2')
+        if meal2:
+            total_price += meal2.main_course_price if meal2.main_course_price else 0
+        meal3 = form.cleaned_data.get('meal3')
+        if meal3:
+            total_price += meal3.main_course_price if meal3.main_course_price else 0
+        meal4 = form.cleaned_data.get('meal4')
+        if meal4:
+            total_price += meal4.main_course_price if meal4.main_course_price else 0
+        meal5 = form.cleaned_data.get('meal5')
+        if meal5:
+            total_price += meal5.main_course_price if meal5.main_course_price else 0
 
     context = {
         "form":form,
-        "meal1":meal_1,
+        "meal1":meal1,
+        "meal2":meal2,
+        "meal3":meal3,
+        "meal4":meal4,
+        "meal5":meal5,
         "total_price":total_price,
         "confirmed": 0
     }
@@ -143,4 +159,8 @@ def orderConfirmation(request):
 
 @login_required
 def thanks(request):
-    return render(request, 'order_app/thanks.html')
+    display = Order2Form(request.POST)
+    context={
+        'display':display
+    }
+    return render(request, 'order_app/thanks.html', context)

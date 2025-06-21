@@ -2,10 +2,11 @@
 {% load static %}
 {% block title %} Order Confirmation {% endblock %}
 {% block main_content %}
+<br>
     <h2> Confirmation </h2>
+    <br>
     
     <div class="confirmationContainer">
-        
         <div class="daysConfirmation"> <!--#Monday-->
             <h3> Monday </h3>
                 {% if meal1 %}
@@ -15,19 +16,66 @@
                  {% else %}
                     <p>No meal selected for Monday</p>
                 {% endif %}
-            
         </div>
         
+        <div class="daysConfirmation">
+            <h3> 星期二 </h3>
+                {% if meal2 %}
+                    <img src="{{ meal2.main_course_img.url }}" alt="TuesdayMeal" width="200" height="200">
+                    <p> {{ meal2.main_course_name  }}</p>
+                    <p> Price:{{ meal2.main_course_price }}</p>
+                 {% else %}
+                    <p>No meal selected for Monday</p>
+                {% endif %}
+        </div>
         
-        <h3> Total: {{ totalPrice }}</h3> <!--Total Price (Pending Confirmation)-->
+        <div class="daysConfirmation"> 
+            <h3> 星期三 </h3>
+                {% if meal3 %}
+                    <img src="{{ meal3.main_course_img.url }}" alt="WednesdayMeal" width="200" height="200">
+                    <p> {{ meal3.main_course_name  }}</p>
+                    <p> Price:{{ meal3.main_course_price }}</p>
+                 {% else %}
+                    <p>No meal selected for Monday</p>
+                {% endif %}
+        </div>
+        
+        <div class="daysConfirmation"> 
+            <h3> 星期四 </h3>
+                {% if meal4 %}
+                    <img src="{{ meal4.main_course_img.url }}" alt="ThursdayMeal" width="200" height="200">
+                    <p> {{ meal4.main_course_name  }}</p>
+                    <p> Price:{{ meal4.main_course_price }}</p>
+                 {% else %}
+                    <p>No meal selected for Monday</p>
+                {% endif %}
+        </div>
+        
+        <div class="daysConfirmation"> 
+            <h3> 星期五 </h3>
+                {% if meal5 %}
+                    <img src="{{ meal5.main_course_img.url }}" alt="FridayMeal" width="200" height="200">
+                    <p> {{ meal5.main_course_name  }}</p>
+                    <p> Price:{{ meal5.main_course_price }}</p>
+                 {% else %}
+                    <p>No meal selected for Monday</p>
+                {% endif %}
+        </div>
+        
+
+        <h3> Total: {{ total_price }}</h3> <!--Total Price (Pending Confirmation)-->
     </div>
     <form method="POST" action="{% url "order_app:order_confirmation" %}?confirmed=1">
         {% csrf_token %}
-                Payment method
-                {{form.payment_method}} </br>
+        {{form.student_name}}
+        {{form.meal1}}
+        {{form.meal2}}
+        {{form.meal3}}
+        {{form.meal4}}
+        {{form.meal5}}<br>
+        Payment method:
+        {{form.payment_method}} </br>
         <button type="submit">Confirmed</button>
     </form>
     
     {% endblock %}
-    
-    
