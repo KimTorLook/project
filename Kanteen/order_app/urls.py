@@ -10,6 +10,7 @@ urlpatterns = [
     path("daily/confirmation/", views.orderConfirmation, name="order_confirmation"),
     path('order/create/', views.create_order, name='create_order'),
     path('order/success/', lambda request: render(request, 'order_success.html'), name='order_success'),
-    path('thanks/<uuid:order_uuid>/', views.thanks, name="thanks")
-
+    path('update/<uuid:order_id>/', views.order_update, name="order_update"),
+    path('delete/<uuid:order_id>/', views.delete_order, name="delete_order"),
+    path('thanks/<uuid:order_uuid>/', views.thanks, name="thanks"),
 ]

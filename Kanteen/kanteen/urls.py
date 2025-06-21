@@ -10,6 +10,7 @@ urlpatterns = [
     path('mode_selection/', include("order_app.urls")),
     path('signup/', include("sign_up.urls")),
     path('accounts/', include("django.contrib.auth.urls")),
+    path("auth/", include("auth_app.urls"))
 ]
 
 if settings.DEBUG:

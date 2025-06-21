@@ -157,6 +157,26 @@ def orderConfirmation(request):
     }
     return render(request, "order_app/orderConfirmation.html", context)
 
+@login_required
+def order_update(request,order_id):
+    form = OrderForm(request.POST)
+    if request.method == "POST":
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            updated_order = form.save()
+        return redirect('order_app:mode_selection', order_id = order_id)
+    
+    context = {
+        "form" : form,
+        "order_id":order_id,
+    }
+    return render(request, "order_app/order_update.html", context)
+
+@login_required
+def delete_order(request, order_id):
+    order = Order.objects.get(order_id = order_id)
+    return render(request, 'order_app/order_list.html')
+
 
 @login_required
 def thanks(request, order_uuid):

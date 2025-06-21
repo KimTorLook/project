@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% block main_content %}
+<h3><a href="{% url 'order_app:mode_selection' %}">返回目錄</a></h3>
+<br>
+<h3>所有帳單︰</h3><br>
+<h5>
+   <table>
+   {% for order in object_list %}
+   <tr>
+      <td><h4>{{order.order_id}}</h4></td>
+      <td><a href=" {% url 'order_detail' pk=order.order_id %}"><h4>詳細資料</h4></a>  </td>
+   
+   </tr>
+   {% endfor %}
+   </table>
+</h5>
+<br>
+
+{% endblock %}

@@ -2,18 +2,26 @@
 {% load static %}
 {% block main_content %}
 </br>
-<h1>Thank you for your ordering. </h1></br><br>
-<h4>訂單號碼:{{display.order_id}}<br><br>
-日期時間:  {{display.order_date_time}}<br><br>
-學生名稱:  {{display.student_name}}<br><br>
-星期一餐點:  {{display.meal1}}<br><br>
-星期二餐點:  {{display.meal2}}<br><br>
-星期三餐點:  {{display.meal3}}<br><br>
-星期四餐點:  {{display.meal4}}<br><br>
-星期五餐點:  {{display.meal5}}<br><br>
-總金額︰  {{display.total_price}}<br><br>
-付款方式︰  {{display.payment_method}}</h4><br><br>
+<h3><a href = "{% url 'order_app:mode_selection' %}">回到目錄</a></h3>
 <br>
-<h1><a href = "{% url 'index' %}">回到首頁</a></h1>
+<h1>多謝您的訂購 </h1></br><br>
+<table>
+    <tr>
+        <tr><td>訂單號碼:</td><td>{{display.order_id}}</td></tr>
+        <tr><td>日期時間:</td><td>{{display.order_date_time}}<td></tr>
+        <tr><td>學生名稱:</td><td>{{display.student_name}}</td></tr>
+        <tr><td>星期一餐點:</td><td>{{display.meal1}}</td></tr>
+        <tr><td>星期二餐點:</td><td>{{display.meal2}}</td></tr>
+        <tr><td>星期三餐點:</td><td>{{display.meal3}}</td></tr>
+        <tr><td>星期四餐點:</td><td>{{display.meal4}}</td></tr>
+        <tr><td>星期五餐點:</td><td>{{display.meal5}}</td></tr>
+        <tr><td>總金額︰</td><td>HKD{{display.total_price}}.0</td></tr>
+        <tr><td>付款方式︰</td><td>{{display.payment_method}}</td></tr>
+        <td>訂單狀況: </td><td>己付款</td>
+    </tr>
+</table>
+
+
+
 
 {% endblock %}

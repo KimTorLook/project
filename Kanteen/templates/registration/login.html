@@ -4,16 +4,16 @@
 {% block menu %}
     {% if form.errors %}
         <div>
-            Please enter the correct username and password.
+            請輸入正確帳戶及密碼.
         </div>
     {% endif %}
 
     <form method="post" action="{% url 'login' %}{% if request.GET.next %}?next={{request.GET.next}}{% endif %}">
         {% csrf_token %}
         {{form.as_p}}
-        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="submit" class="btn btn-primary">登入</button>
     </form>
     <div>
-        <a href="{% url 'password_reset' %}">Forgot password?</a>
+        <a href="{% url 'password_reset' %}">忘記密碼?</a>
     </div>
 {% endblock %}

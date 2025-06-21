@@ -1,11 +1,17 @@
 {% extends "base.html" %}
 {% load static %}
 {% block main_content %}
+<h3><a href="{% url 'index' %}">返回主頁</a></h3>
 
-<br>
+<br><br><br>
 <div>
-    <h1><a href="{% url 'order_app:daily' %}">日常點餐</a></h1>
+    <h3><a href="{% url 'order_app:daily' %}">日常點餐</a></h3>
 </div>
-
+<div>
+    <h3><a href="{% url 'student_list' %}">學生資料</a></h3>
+</div>
+<div>
+    <h3><a href="{% url 'order_list' %}">帳單資料</a></h3>
+</div>
 
 {% endblock %}
