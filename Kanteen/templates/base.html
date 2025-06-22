@@ -78,7 +78,6 @@
           <a href="{% url 'password_change' %}">更改密碼</a>
         </div>
 
-
       {% else %}
         <form method="get" action="{% url 'login' %}">
           {% csrf_token %}

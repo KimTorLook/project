@@ -3,16 +3,17 @@
 {% block main_content %}
 <h3><a href="{% url 'order_app:mode_selection' %}">返回目錄</a></h3>
 <br>
-<h3>學生姓名︰</h3><br>
+<h3>學生列表</h3><br>
 <h5>
    <table>
-   {% for student in object_list %}
-   <tr>
-      <td><h4>{{student.first_name}}, {{student.last_name}}</h4></td>
-      <td><a href=" {% url 'student_detail' pk=student.stid %}"><h4>詳細資料</h4></a>  </td>
-   
-   </tr>
-   {% endfor %}
+      <th><h4>學生姓名</h4></th><th></th>
+      {% for student in object_list %}
+      <tr>
+         <td><h5>{{student.first_name}}, {{student.last_name}}</h5></td>
+         <td><a href=" {% url 'student_detail' pk=student.stid %}"><h4>詳細資料</h4></a>  </td>
+      
+      </tr>
+      {% endfor %}
    </table>
 </h5>
 <br>

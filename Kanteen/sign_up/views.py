@@ -6,11 +6,6 @@ from .decorators import unauthenticated_user_only
 
 
 # Create your views here.
-def homepage(request):
-    return render(request, "introduction.html")
-
-def sign_up_index(request):
-    return render(request, "sign_up/index.html")
 
 @unauthenticated_user_only
 def signup(request):

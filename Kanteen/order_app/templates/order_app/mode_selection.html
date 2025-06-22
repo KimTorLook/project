@@ -7,11 +7,13 @@
 <div>
     <h3><a href="{% url 'order_app:daily' %}">日常點餐</a></h3>
 </div>
-<div>
-    <h3><a href="{% url 'student_list' %}">學生資料</a></h3>
-</div>
-<div>
-    <h3><a href="{% url 'order_list' %}">帳單資料</a></h3>
-</div>
+{% if request.user.is_authenticated %}
+    <div>
+        <h3><a href="{% url 'student_list' %}">學生資料</a></h3>
+    </div>
+    <div>
+        <h3><a href="{% url 'order_list' %}">帳單資料</a></h3>
+    </div>
+{%endif %}
 
 {% endblock %}

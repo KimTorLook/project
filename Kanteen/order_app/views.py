@@ -5,6 +5,7 @@ from order_app.models import Order, Main_Course, Restaurant, Student
 from random import choice, choices
 from .forms import OrderForm, Order2Form
 from django.contrib.auth.decorators import login_required
+from sign_up.decorators import allowed_users
 
 @login_required
 def mode_selection(request):
@@ -157,25 +158,14 @@ def orderConfirmation(request):
     }
     return render(request, "order_app/orderConfirmation.html", context)
 
-@login_required
-def order_update(request,order_id):
-    form = OrderForm(request.POST)
-    if request.method == "POST":
-        form = OrderForm(request.POST)
-        if form.is_valid():
-            updated_order = form.save()
-        return redirect('order_app:mode_selection', order_id = order_id)
-    
-    context = {
-        "form" : form,
-        "order_id":order_id,
-    }
-    return render(request, "order_app/order_update.html", context)
+
 
 @login_required
+@allowed_users(allowed_roles=['admin'])
 def delete_order(request, order_id):
     order = Order.objects.get(order_id = order_id)
-    return render(request, 'order_app/order_list.html')
+    order.delete()
+    return render(request, '/order_app/order_delete_done.html', order)
 
 
 @login_required
