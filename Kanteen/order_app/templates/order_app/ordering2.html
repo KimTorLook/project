@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 {% block main_content %}
-<h3><a href="{% url 'order_app:mode_selection' %}">返回目錄</a></h3>
+  <div class="row mb-4">
+    <div class="col-12">
+      <a href="{% url 'order_app:mode_selection' %}" class="btn btn-primary large-text">返回目錄</a>
+    </div>
+  </div>
 <h1>訂餐頁面</h1>
 
 {% if error %}
@@ -199,18 +203,17 @@
 
 
 <script>
-    $(document).ready(function() {
-        $('.select-meal').click(function() {
-            var mealId = $(this).data('meal-id');
-            var day = $(this).data('day');
-            $('#meal_' + day).val(mealId);
-            // 高亮選擇的按鈕
-            $(this).closest('.row').find('.select-meal').removeClass('btn-success').addClass('btn-primary');
-            $(this).removeClass('btn-primary').addClass('btn-success');
-        });
+  $(document).ready(function() {
+    $('.select-meal').click(function() {
+      var mealId = $(this).data('meal-id');
+      var day = $(this).data('day');
+      $('#meal_' + day).val(mealId);
+      // Highlight selected button
+      $(this).closest('.row').find('.select-meal').removeClass('selected').addClass('btn-primary');
+      $(this).addClass('selected').removeClass('btn-primary');
     });
+  });
 </script>
-
 
 
 {% endblock %}

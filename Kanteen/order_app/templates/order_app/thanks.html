@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 {% block main_content %}
-</br>
-<h3><a href = "{% url 'order_app:mode_selection' %}">回到目錄</a></h3>
+  <div class="row mb-4">
+    <div class="col-12">
+      <a href="{% url 'order_app:mode_selection' %}" class="btn btn-primary large-text">返回目錄</a>
+    </div>
+  </div>
 <br>
 <h1>多謝您的訂購 </h1></br><br>
 <h3>訂單資料</h2>

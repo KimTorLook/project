@@ -21,7 +21,12 @@
     </div>
     </br>
       {% if request.user.is_authenticated %}
-        <h1><a href="{% url 'order_app:mode_selection' %}">進入目錄</a></h1>
+    <div class="row mb-4">
+      <div class="col-12">
+        <a href="{% url 'order_app:mode_selection' %}" class="btn btn-primary large-text">進入目錄</a>
+      </div>
+    </div>
+
       {% else %}
       {% endif %}
 

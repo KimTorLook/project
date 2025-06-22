@@ -1,53 +1,75 @@
 {% extends "base.html" %}
 {% load static %}
 {% block main_content %}
+<div class="container-fluid py-4">
+  <!-- Return Button -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <a href="{% url 'order_list' %}" class="btn btn-primary large-text">回到訂餐列表</a>
+    </div>
+  </div>
 
-<h4>
-   <a href="{% url 'order_list' %}">回到訂餐列表</a>
-   <br><br><br>
+  <!-- Page Title -->
+  <h1 class="text-center mb-4">訂單詳情</h1>
 
-      <table>
-         <tr>
-            <td>訂餐編號︰</td><td>{{object.order_id}}</td>
-         </tr>
-         <tr>
-            <td>訂餐日期︰</td><td>{{object.order_date_time}}</td>
-         </tr>
-         <tr>
-            <td>學生姓名︰</td><td>{{object.student_name}}</td>
-         </tr>
-         student_name
-         <tr>
-            <td>星期一餐點︰</td><td>{{object.meal1}}</td>
-         </tr>
-            <td>星期二餐點︰</td><td>{{object.meal2}}</td>
-         </tr>
-         <tr>
-            <td>星期三餐點︰</td><td>{{object.meal3}}</td>
-         </tr>
-         <tr>
-            <td>星期四餐點︰</td><td>{{object.meal4}}</td>
-         </tr>
-         <tr>
-            <td>星期五餐點︰</td><td>{{object.meal5}}</td>
-         </tr>
-         <tr>
-            <td>總金額︰</td><td>HKD{{object.total_price}}.0</td>
-         </tr>
-         <tr>
-            <td>付款方式︰</td><td>{{object.payment_method}}</td>
-         </tr>
-         <tr>
-            <td>付款將況︰</td><td>己付款</td>
-         </tr>
-      </table>
-   <br>
-
-   <a href="{% url 'order_app:order_update' order_id=object.order_id %} ">修改訂單</a>
-   <a href="{% url 'order_app:delete_order' order_id=object.order_id %} ">取消訂單</a>
-
-
-</h4>
-
-   
+  <!-- Order Details Table -->
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <tbody>
+            <tr>
+              <th scope="row" class="large-text">訂單編號</th>
+              <td class="large-text">{{ object.order_id }}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="large-text">訂單日期</th>
+              <td class="large-text">{{ object.order_date_time }}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="large-text">學生姓名</th>
+              <td class="large-text">{{ object.student_name }}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="large-text">星期一餐點</th>
+              <td class="large-text">{{ object.meal1|default:"未選擇" }}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="large-text">星期二餐點</th>
+              <td class="large-text">{{ object.meal2|default:"未選擇" }}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="large-text">星期三餐點</th>
+              <td class="large-text">{{ object.meal3|default:"未選擇" }}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="large-text">星期四餐點</th>
+              <td class="large-text">{{ object.meal4|default:"未選擇" }}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="large-text">星期五餐點</th>
+              <td class="large-text">{{ object.meal5|default:"未選擇" }}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="large-text">總金額</th>
+              <td class="large-text">HK${{ object.total_price|default:0 }}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="large-text">付款方式</th>
+              <td class="large-text">{{ object.payment_method|default:"未指定" }}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="large-text">付款狀態</th>
+              <td class="large-text">已付款</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Cancel Order Button -->
+      <div class="text-center mt-4">
+        <a href="{% url 'order_app:delete_order' order_id=object.order_id %}" class="btn btn-danger large-text">取消訂單</a>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

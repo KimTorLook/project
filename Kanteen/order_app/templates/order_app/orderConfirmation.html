@@ -1,86 +1,140 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %} Order Confirmation {% endblock %}
+{% block title %}Order Confirmation{% endblock %}
 {% block main_content %}
-<h3><a href="{% url 'order_app:mode_selection' %}">返回目錄</a></h3>
-
-<br>
-
-    <h1> 確認餐點 </h1>
-    <br>
-    
-    <div class="confirmationContainer">
-        <div class="daysConfirmation"> <!--#Monday-->
-            <h3> 星期一 </h3>
-            <h5>
-                {% if meal1 %}
-                    <img src="{{ meal1.main_course_img.url }}" alt="MondayMeal" width="200" height="200">
-                    <p> {{ meal1.main_course_name  }}</p>
-                    <p> 價格: HK${{ meal1.main_course_price }}</p>
-                 {% else %}
-                    <p>No meal selected for Monday</p>
-                {% endif %}</h5>
-        </div>
-        
-        <div class="daysConfirmation">
-            <h3> 星期二 </h3>
-                <h5>{% if meal2 %}
-                    <img src="{{ meal2.main_course_img.url }}" alt="TuesdayMeal" width="200" height="200">
-                    <p> {{ meal2.main_course_name  }}</p>
-                    <p> 價格: HK${{ meal2.main_course_price }}.0</p>
-                 {% else %}
-                    <p>No meal selected for Monday</p>
-                {% endif %}</h5>
-        </div>
-        
-        <div class="daysConfirmation"> 
-            <h3> 星期三 </h3>
-                <h5>{% if meal3 %}
-                    <img src="{{ meal3.main_course_img.url }}" alt="WednesdayMeal" width="200" height="200">
-                    <p> {{ meal3.main_course_name  }}</p>
-                    <p> 價格: HK${{ meal3.main_course_price }}</p>
-                 {% else %}
-                    <p>No meal selected for Monday</p>
-                {% endif %}</h5>
-        </div>
-        
-        <div class="daysConfirmation"> 
-            <h3> 星期四 </h3>
-                <h5>{% if meal4 %}
-                    <img src="{{ meal4.main_course_img.url }}" alt="ThursdayMeal" width="200" height="200">
-                    <p> {{ meal4.main_course_name  }}</p>
-                    <p> 價格: HK${{ meal4.main_course_price }}</p>
-                 {% else %}
-                    <p>No meal selected for Monday</p>
-                {% endif %}</h5>
-        </div>
-        
-        <div class="daysConfirmation"> 
-            <h3> 星期五 </h3>
-                <h5>{% if meal5 %}
-                    <img src="{{ meal5.main_course_img.url }}" alt="FridayMeal" width="200" height="200">
-                    <p> {{ meal5.main_course_name  }}</p>
-                    <p> 價格: HK${{ meal5.main_course_price }}</p>
-                 {% else %}
-                    <p>No meal selected for Monday</p>
-                {% endif %}</h5>
-        </div>
-        
-
-        <h3> 總金額: HKD{{ total_price }}.0</h3> <!--Total Price (Pending Confirmation)-->
+<div class="container-fluid py-4">
+  <!-- Return Button -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <a href="{% url 'order_app:mode_selection' %}" class="btn btn-primary large-text">返回目錄</a>
     </div>
-    <form method="POST" action="{% url "order_app:order_confirmation" %}?confirmed=1">
-        {% csrf_token %}
-        {{form.student_name}}
-        {{form.meal1}}
-        {{form.meal2}}
-        {{form.meal3}}
-        {{form.meal4}}
-        {{form.meal5}}<br>
-        付款方式(VISA / MASTER / AE / FPS / PAYME / ALIPAY / WECHATPAY / OCTOPUS):
-        {{form.payment_method}} </br>
-        <button type="submit">確定付款</button>
-    </form>
+  </div>
 
-    
-    {% endblock %}
+  <!-- Page Title -->
+  <h1 class="text-center mb-4">確認餐點</h1>
+
+  <!-- Weekly Meals -->
+  <div class="d-flex flex-row flex-wrap gap-4 mb-4">
+    <!-- Monday -->
+    <div class="card flex-fill" style="min-height: 300px; min-width: 200px;">
+      <div class="card-body text-center d-flex flex-column justify-content-between">
+        <div>
+          <h3 class="card-title">星期一</h3>
+          {% if meal1 %}
+            <img src="{{ meal1.main_course_img.url }}"
+                 alt="Monday Meal"
+                 class="img-fluid"
+                 style="width: 200px; height: 200px; object-fit: cover; margin: auto;">
+            <h5 class="mt-3">{{ meal1.main_course_name|default:"未命名" }}</h5>
+            <p class="card-text">價格: HK${{ meal1.main_course_price|default:0 }}</p>
+          {% else %}
+            <h5 class="mt-3">未選擇餐點</h5>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Tuesday -->
+    <div class="card flex-fill" style="min-height: 300px; min-width: 200px;">
+      <div class="card-body text-center d-flex flex-column justify-content-between">
+        <div>
+          <h3 class="card-title">星期二</h3>
+          {% if meal2 %}
+            <img src="{{ meal2.main_course_img.url }}"
+                 alt="Tuesday Meal"
+                 class="img-fluid"
+                 style="width: 200px; height: 200px; object-fit: cover; margin: auto;">
+            <h5 class="mt-3">{{ meal2.main_course_name|default:"未命名" }}</h5>
+            <p class="card-text">價格: HK${{ meal2.main_course_price|default:0 }}</p>
+          {% else %}
+            <h5 class="mt-3">未選擇餐點</h5>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Wednesday -->
+    <div class="card flex-fill" style="min-height: 300px; min-width: 200px;">
+      <div class="card-body text-center d-flex flex-column justify-content-between">
+        <div>
+          <h3 class="card-title">星期三</h3>
+          {% if meal3 %}
+            <img src="{{ meal3.main_course_img.url }}"
+                 alt="Wednesday Meal"
+                 class="img-fluid"
+                 style="width: 200px; height: 200px; object-fit: cover; margin: auto;">
+            <h5 class="mt-3">{{ meal3.main_course_name|default:"未命名" }}</h5>
+            <p class="card-text">價格: HK${{ meal3.main_course_price|default:0 }}</p>
+          {% else %}
+            <h5 class="mt-3">未選擇餐點</h5>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Thursday -->
+    <div class="card flex-fill" style="min-height: 300px; min-width: 200px;">
+      <div class="card-body text-center d-flex flex-column justify-content-between">
+        <div>
+          <h3 class="card-title">星期四</h3>
+          {% if meal4 %}
+            <img src="{{ meal4.main_course_img.url }}"
+                 alt="Thursday Meal"
+                 class="img-fluid"
+                 style="width: 200px; height: 200px; object-fit: cover; margin: auto;">
+            <h5 class="mt-3">{{ meal4.main_course_name|default:"未命名" }}</h5>
+            <p class="card-text">價格: HK${{ meal4.main_course_price|default:0 }}</p>
+          {% else %}
+            <h5 class="mt-3">未選擇餐點</h5>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Friday -->
+    <div class="card flex-fill" style="min-height: 300px; min-width: 200px;">
+      <div class="card-body text-center d-flex flex-column justify-content-between">
+        <div>
+          <h3 class="card-title">星期五</h3>
+          {% if meal5 %}
+            <img src="{{ meal5.main_course_img.url }}"
+                 alt="Friday Meal"
+                 class="img-fluid"
+                 style="width: 200px; height: 200px; object-fit: cover; margin: auto;">
+            <h5 class="mt-3">{{ meal5.main_course_name|default:"未命名" }}</h5>
+            <p class="card-text">價格: HK${{ meal5.main_course_price|default:0 }}</p>
+          {% else %}
+            <h5 class="mt-3">未選擇餐點</h5>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Price -->
+  <h3 class="text-center mb-4">總金額: HK${{ total_price|default:0 }}</h3>
+
+  <!-- Payment Form -->
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form method="POST" action="{% url 'order_app:order_confirmation' %}?confirmed=1">
+        {% csrf_token %}
+        <!-- Hidden form fields -->
+        <input type="hidden" name="student_name" value="{{ form.student_name.value|default:request.user.student.pk }}">
+        <input type="hidden" name="meal1" value="{{ form.meal1.value|default:'' }}">
+        <input type="hidden" name="meal2" value="{{ form.meal2.value|default:'' }}">
+        <input type="hidden" name="meal3" value="{{ form.meal3.value|default:'' }}">
+        <input type="hidden" name="meal4" value="{{ form.meal4.value|default:'' }}">
+        <input type="hidden" name="meal5" value="{{ form.meal5.value|default:'' }}">
+        <!-- Payment Method -->
+        <div class="mb-3">
+          <label for="id_payment_method" class="form-label large-text">付款方式</label>
+          {{ form.payment_method }}
+          <small class="form-text text-muted">可選: VISA, MASTER, AE, FPS, PAYME, ALIPAY, WECHATPAY, OCTOPUS</small>
+        </div>
+        <button type="submit" class="btn btn-success large-text w-100">確定付款</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

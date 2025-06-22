@@ -165,7 +165,7 @@ def orderConfirmation(request):
 def delete_order(request, order_id):
     order = Order.objects.get(order_id = order_id)
     order.delete()
-    return render(request, '/order_app/order_delete_done.html', order)
+    return redirect('/auth/order_list')
 
 
 @login_required
